@@ -68,24 +68,27 @@ class AppController extends Controller {
 		$this->set('markerSum', $this->Marker->find('count'));
 		$this->set('commentSum', $this->Marker->Comment->find('count'));
 		$this->set('ratingSum', $this->Rating->find('count'));
-		$this->set('commentLast', $this->Marker->Comment->find('first', 
-															array('order' => 
-																array('Comment.created DESC')
-																)
-															)
-														);
-		$this->set('markerLast', $this->Marker->find('first', 
-													array('order' => array(
-														'Marker.created DESC')
-														)
-													)
-												); 
-		$this->set('ratingLast', $this->Rating->find('first', 
-													array('order' => 
-														array('Rating.created DESC')
-														)
-													)
-												); 
+		$this->set('commentLast', 
+				$this->Marker->Comment->find('first', 
+					array('order' => 
+							array('Comment.created DESC')
+								)
+							)
+						);
+		$this->set('markerLast', 
+				$this->Marker->find('first', 
+					array('order' => 
+						array('Marker.created DESC')
+							)
+						)
+					); 
+		$this->set('ratingLast', 
+				$this->Rating->find('first', 
+					array('order' => 
+						array('Rating.created DESC')
+							)
+						)
+					); 
 	
 	}
 	
@@ -98,7 +101,7 @@ class AppController extends Controller {
 		}
 		
 		if (isset($this->params['language'])) {
- 			$this->Cookie->del('lang');  
+			$this->Cookie->del('lang');  
 			$this->Session->write('Config.language', $this->params['language']);
 			Configure::write('Config.language', $this->params['language']);
 			$this->Cookie->write('lang', $this->params['language'], null, '20 days');
@@ -113,8 +116,6 @@ class AppController extends Controller {
 
 	function beforeRender(){
 	
-		//If we have an authorised user logged then pass over an array of controllers
-		//to which they have index action permission
 		if($this->Auth->user()){
 			$this->set('currentUser', $this->Auth->user());			
 			$controllerList = Configure::listObjects('controller');
