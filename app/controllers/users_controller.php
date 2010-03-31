@@ -79,8 +79,8 @@ class UsersController extends AppController {
 				 * move user into their group
 				 *
 				 */
-			 	$this->data['Group']['id']='4abe2bc9-2554-427f-bb9e-e88e510ab7ac';
-				$this->data['User']['active']=1;
+			 	$this->data['Group']['id'] ='4abe2bc9-2554-427f-bb9e-e88e510ab7ac';
+				$this->data['User']['active'] =1;
 
 				$this->User->create();
 				if ($this->User->save($this->data)) {
@@ -119,15 +119,15 @@ class UsersController extends AppController {
 												array('class' => 'flash_error'));
 				//$this->set('mathCaptcha', $this->MathCaptcha->generateEquation());
 
-				$this->data['User']['passwd']=null;
-				$this->data['User']['password']=null;
+				$this->data['User']['passwd'] =null;
+				$this->data['User']['password'] =null;
 			}
 			} else {
                 $this->Session->setFlash(__('Sorry, you are wrong, please recalculate.',true), 
                 								'default', 
                 								array('class' => 'flash_error'));
-				$this->data['User']['passwd']=null;
-				$this->data['User']['password']=null;
+				$this->data['User']['passwd'] =null;
+				$this->data['User']['password'] =null;
 			}
 		
 			
@@ -266,9 +266,9 @@ class UsersController extends AppController {
 				 */				    
 			    
 			    
-				$data['Ticket']['hash']=$hashyToken;
-				$data['Ticket']['data']=$email;
-				$data['Ticket']['expires']=$this->Ticketmaster->getExpirationDate();
+				$data['Ticket']['hash'] =$hashyToken;
+				$data['Ticket']['data'] =$email;
+				$data['Ticket']['expires'] =$this->Ticketmaster->getExpirationDate();
 		
 				if ($this->Ticket->save($data)) {
 					$this->Session->setFlash(__('Please check your mail to receive more details.',true), 
@@ -338,15 +338,15 @@ class UsersController extends AppController {
 				$this->redirect('/');
 			}
 			$this->data = $this->User->read(null, $id);
-			$this->data['User']['passwd']=null;
-			$this->data['User']['password']=null;
+			$this->data['User']['passwd'] =null;
+			$this->data['User']['password'] =null;
 		} else {				
-			$this->data['User']['id']=$id;
+			$this->data['User']['id'] =$id;
  			if (isset($this->data['User']['passwd']))
 					$this->data['User']['passwdhashed'] = $this->Auth->password($this->data['User']['passwd']);
 
 			$this->User->id = $id;
-			if ($this->User->saveField('password',$this->data['User']['passwdhashed'],$validate = false)) {
+			if ($this->User->saveField('password', $this->data['User']['passwdhashed'],$validate = false)) {
 				//delete session token and delete used ticket from table
 				$this->Session->delete('tokenreset');
 				$this->Session->setFlash(__('Your password has been changed',true) , 

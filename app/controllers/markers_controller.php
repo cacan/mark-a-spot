@@ -60,8 +60,8 @@ class MarkersController extends AppController {
 						);
 							
 		if ($this->action == "startup" && $this->params['pass']) {
-			$this->Session->write('addAdress.street',$this->params['pass'][1]);
-			$this->Session->write('addAdress.zip',$this->params['pass'][2]);
+			$this->Session->write('addAdress.street', $this->params['pass'][1]);
+			$this->Session->write('addAdress.zip', $this->params['pass'][2]);
 		}
 		
 		
@@ -88,9 +88,9 @@ class MarkersController extends AppController {
 			$this->set("userGroup", "");
 		}
 
-		
 		// Can Access checks if marker belongs to user
 		if (in_array($this->action, array('delete', 'edit')) && isset($this->params['pass'][0])) {
+
 	      if (!$this->Marker->canAccess($this->Auth->user('id'), $this->params['pass'][0]) 
 	      	&& $userGroup[0]['Groups_user']['group_id'] != $uGroupSysAdmin 
 	      	&& $userGroup[0]['Groups_user']['group_id'] != $uGroupAdmin) {
@@ -108,7 +108,7 @@ class MarkersController extends AppController {
 	 */	 
 	function app() {
 		$this->layout = 'default_marker'; 
-		$this->set('title',__('Map and List View',true));
+		$this->set('title', __('Map and List View',true));
 		$this->Marker->Cat->recursive = -1;
 		$cats = $this->Marker->Cat->find('all');
 		$this->Marker->Processcat->recursive = -1;
@@ -116,7 +116,7 @@ class MarkersController extends AppController {
 		$this->District->recursive = -1;
 		$this->set('cats',$cats);
 		$this->set('processcats',$processcats);
-		$this->set('districts',$this->District->find('all'));
+		$this->set('districts', $this->District->find('all'));
 		$this->set("CSS", "styles"); 
 		$this->set('markers', $this->paginate());
 	}
@@ -170,13 +170,13 @@ class MarkersController extends AppController {
 			$condition = array('Marker.processcat_id' => $this->params['named']['processcat']);
 			// Set ProcessCat for heading
 			$this->Marker->Processcat->recursive = -1;
-			$this->set('processcat',$this->Marker->Processcat->read('Name',$this->params['named']['processcat']));
+			$this->set('processcat',$this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
 		
 		} elseif ($this->params['named']['cat']) {
 			$condition = array('Marker.cat_id' => $this->params['named']['cat']);
 			// Set Cat for heading
 			$this->Marker->Cat->recursive = -1;
-			$this->set('cat',$this->Marker->Cat->read('Name',$this->params['named']['cat']));	
+			$this->set('cat',$this->Marker->Cat->read('Name', $this->params['named']['cat']));	
 		}
 		
 			
@@ -204,7 +204,7 @@ class MarkersController extends AppController {
 		if ($this->params['named']['processcat']) {
 			$condition = array('Marker.processcat_id' => $this->params['named']['processcat']);
 			$this->Marker->Processcat->recursive = -1;
-			$this->set('h2Processcat',$this->Marker->Processcat->read('Name',$this->params['named']['processcat']));
+			$this->set('h2Processcat',$this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
 		
 		} elseif ($this->params['named']['cat']) {
 			$condition = array('Marker.cat_id' => $this->params['named']['cat']);
@@ -236,13 +236,13 @@ class MarkersController extends AppController {
 			$condition = array('Marker.processcat_id' => $this->params['named']['processcat']);
 			// Set ProcessCat for heading
 			$this->Marker->Processcat->recursive = -1;
-			$this->set('processcat',$this->Marker->Processcat->read('Name',$this->params['named']['processcat']));
+			$this->set('processcat',$this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
 		
 		} elseif ($this->params['named']) {
 			$condition = array('Marker.cat_id' => $this->params['named']['cat']);
 			// Set Cat for heading
 			$this->Marker->Cat->recursive = -1;
-			$this->set('cat',$this->Marker->Cat->read('Name',$this->params['named']['cat']));	
+			$this->set('cat',$this->Marker->Cat->read('Name', $this->params['named']['cat']));	
 		}
 		
 		if ($this->params['named']){
@@ -270,13 +270,13 @@ class MarkersController extends AppController {
 			$condition = array('Marker.processcat_id' => $this->params['named']['processcat']);
 			// Set ProcessCat for heading
 			$this->Marker->Processcat->recursive = -1;
-			$this->set('processcat',$this->Marker->Processcat->read('Name',$this->params['named']['processcat']));
+			$this->set('processcat',$this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
 		
 		} elseif ($this->params['named']['cat']) {
 			$condition = array('Marker.cat_id' => $this->params['named']['cat']);
 			// Set Cat for heading
 			$this->Marker->Cat->recursive = -1;
-			$this->set('cat',$this->Marker->Cat->read('Name',$this->params['named']['cat']));	
+			$this->set('cat',$this->Marker->Cat->read('Name', $this->params['named']['cat']));	
 		}
 		
 		$this->set('getIdCat', $this->params['named']['cat']);	
@@ -739,15 +739,21 @@ class MarkersController extends AppController {
 				}
 				
 		if (!empty($this->data)) {
+		
 			if ($this->RequestHandler->isAjax()) {
+		
 				if ($this->Marker->saveField('lat', $this->params['pass'][1], $validate = false))
 					$this->set(flash_success_1, 'lat ok');
+				
 				if ($this->Marker->saveField('lon', $this->params['pass'][2], $validate = false))
 					$this->set(flash_success_2, 'lon ok');
+				
 				if ($this->Marker->saveField('zip', $splitCity[1], $validate = false))
 					$this->set(flash_success_3, 'PLZ ok');
+				
 				if ($this->Marker->saveField('city', $splitCity[2], $validate = false))
 					$this->set(flash_success_4, 'Stadt ok');
+				
 				if ($this->Marker->saveField('street', $address[2], $validate = false)) {
 					$this->set(flash_success_5, 'Straße ok');
 					
