@@ -1,0 +1,72 @@
+h1. Mark-a-Spot Readme File
+
+Copyright (c) 2010 Holger Kreis
+http://www.mark-a-spot.org
+
+A map-based platform to display, categorize, rate and comment places in an urban environment
+
+@copyright  2010 Holger Kreis <holger@markaspot.org>
+@license    http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero General Public License
+@link       http://mark-a-spot.org/
+@version    0.98
+ 
+
+
+h2. Installation Instructions
+
+- Copy the directory or it's content into the documentroot of your webserver
+- Create a database and import app/config/sql/mas.sql/
+
+
+
+
+h3. Configure files
+
+- Open database.php.default and create db-connect.Rename.
+- Open mark-a-spot.php and change default values.
+- Open /webroot/js/markers.js and change default values 
+	of conf.object (Town, Subdirectory, Default Latlon)
+- Open /webroot/js/common.js and change default values of confCommon.object (Labels, Subdirectory)
+
+
+
+
+h3. Configure the database
+
+- Login with admin@markaspot.org:test123 for Sysadmin Access
+- Change Password /(subdirectory)/users
+- Deactivate scaffolding in users_controller
+
+
+
+h2. Thank you:
+
+h3. Help
+
+- Nina Schröter, Michael Schneidt, Domingos de Oliveira (Aktion Mensch)
+
+
+h3. Code
+
+Mark-a-Spot makes heavy use of other software, snippets, packages like:
+
+- AJAX Starrating Plugin by Michael Schneidt (schneimi)
+  http://bakery.cakephp.org/articles/view/ajax-star-rating-plugin-1
+
+- search-plugin by Github/kalt
+  http://github.com/kalt/search
+
+- Media-Plugin/David Persson
+  http://github.com/davidpersson/media
+
+- JQuery Validation Plugin by Matt Curry
+  http://github.com/mcurry/js_validate/
+
+- The Tuturial Code of Peter Butler
+  http://www.studiocanaria.com/articles/cakephp_auth_component_users_groups_permissions_revisited
+  
+- ...  
+
+- and lots of knowledge shared in 
+	the Google Maps Discussion Group
+    http://groups.google.com/group/Google-Maps-API
