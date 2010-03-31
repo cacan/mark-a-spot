@@ -25,7 +25,7 @@ if (!$session->read('Auth.User.id')) {
 	echo $form->input('User.fon',array('label' => __('Phone',true), 'between'=>'<br/>', 'class'=>'text'));
 	echo '</div>';	
 	echo '</div>';	
-	$recaptcha->display_form('echo');
+	//$recaptcha->display_form('echo');
 
 }
 ?>

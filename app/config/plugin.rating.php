@@ -14,7 +14,7 @@ $config['Rating.showHelp'] = true;
  * 
  * If you access your app like http://yourdomain/mycake then /mycake/ is your app root.
  */
-$config['Rating.appRoot'] = '/markaspot/';
+$config['Rating.appRoot'] = '/';
 
 /**
  * Show a flash message after rating.
