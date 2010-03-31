@@ -170,13 +170,13 @@ class MarkersController extends AppController {
 			$condition = array('Marker.processcat_id' => $this->params['named']['processcat']);
 			// Set ProcessCat for heading
 			$this->Marker->Processcat->recursive = -1;
-			$this->set('processcat',$this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
+			$this->set('processcat', $this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
 		
 		} elseif ($this->params['named']['cat']) {
 			$condition = array('Marker.cat_id' => $this->params['named']['cat']);
 			// Set Cat for heading
 			$this->Marker->Cat->recursive = -1;
-			$this->set('cat',$this->Marker->Cat->read('Name', $this->params['named']['cat']));	
+			$this->set('cat', $this->Marker->Cat->read('Name', $this->params['named']['cat']));	
 		}
 		
 			
@@ -204,12 +204,12 @@ class MarkersController extends AppController {
 		if ($this->params['named']['processcat']) {
 			$condition = array('Marker.processcat_id' => $this->params['named']['processcat']);
 			$this->Marker->Processcat->recursive = -1;
-			$this->set('h2Processcat',$this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
+			$this->set('h2Processcat', $this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
 		
 		} elseif ($this->params['named']['cat']) {
 			$condition = array('Marker.cat_id' => $this->params['named']['cat']);
 			$this->Marker->Cat->recursive = -1;
-			$this->set('h2Cat',$this->Marker->Cat->read('Name', $this->params['named']['cat']));	
+			$this->set('h2Cat', $this->Marker->Cat->read('Name', $this->params['named']['cat']));	
 		}
 		
 			
@@ -236,13 +236,13 @@ class MarkersController extends AppController {
 			$condition = array('Marker.processcat_id' => $this->params['named']['processcat']);
 			// Set ProcessCat for heading
 			$this->Marker->Processcat->recursive = -1;
-			$this->set('processcat',$this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
+			$this->set('processcat', $this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
 		
 		} elseif ($this->params['named']) {
 			$condition = array('Marker.cat_id' => $this->params['named']['cat']);
 			// Set Cat for heading
 			$this->Marker->Cat->recursive = -1;
-			$this->set('cat',$this->Marker->Cat->read('Name', $this->params['named']['cat']));	
+			$this->set('cat', $this->Marker->Cat->read('Name', $this->params['named']['cat']));	
 		}
 		
 		if ($this->params['named']){
@@ -253,7 +253,7 @@ class MarkersController extends AppController {
 		}	
 		$this->Marker->Cat->recursive = -1;
 		$cats = $this->Marker->Cat->find('all');
-		$this->set('cats',$cats);
+		$this->set('cats', $cats);
 		$this->Marker->Processcat->recursive = -1;
 		$processcats = $this->Marker->Processcat->find('all');
 		$this->set('processcats',$processcats);
@@ -270,13 +270,13 @@ class MarkersController extends AppController {
 			$condition = array('Marker.processcat_id' => $this->params['named']['processcat']);
 			// Set ProcessCat for heading
 			$this->Marker->Processcat->recursive = -1;
-			$this->set('processcat',$this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
+			$this->set('processcat', $this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
 		
 		} elseif ($this->params['named']['cat']) {
 			$condition = array('Marker.cat_id' => $this->params['named']['cat']);
 			// Set Cat for heading
 			$this->Marker->Cat->recursive = -1;
-			$this->set('cat',$this->Marker->Cat->read('Name', $this->params['named']['cat']));	
+			$this->set('cat', $this->Marker->Cat->read('Name', $this->params['named']['cat']));	
 		}
 		
 		$this->set('getIdCat', $this->params['named']['cat']);	
@@ -311,12 +311,12 @@ class MarkersController extends AppController {
 			$address .= ' '.$this->data['Marker']['zip'];
 			$address .= ' '.Configure::read('Gov.town');
 			$latlng = $this->Geocoder->getLatLng($address);
-			$this->data['Marker']['lat']= $latlng['lat'];
-			$this->data['Marker']['lon']= $latlng['lng'];
+			$this->data['Marker']['lat'] = $latlng['lat'];
+			$this->data['Marker']['lon'] = $latlng['lng'];
 			
 			
-			$this->data['Marker']['user_id']= $this->Auth->user('id');
-			$this->data['Marker']['processcat_id']= 1;
+			$this->data['Marker']['user_id'] = $this->Auth->user('id');
+			$this->data['Marker']['processcat_id'] = 1;
  			$this->Marker->create();
 			
 			if ($this->Marker->saveAll($this->data)) {
@@ -348,7 +348,9 @@ class MarkersController extends AppController {
 				*/
 				$this->redirect(array('controller'  => 'markers', 'action' => 'app'));
 			} else {
-				$this->Session->setFlash(__('This marker could not be saved.',true), 'default',array('class' => 'flash_error'));
+				$this->Session->setFlash(__('This marker could not be saved.',true), 
+										'default', 
+										array('class' => 'flash_error'));
 			}
 		}
 		
@@ -390,8 +392,8 @@ class MarkersController extends AppController {
 
 			// set User non-active and Group for Users
 			 
-			$this->data['User']['active']=0;			
-			$this->data['Group']['id']='4abe2bc9-2554-427f-bb9e-e88e510ab7ac';
+			$this->data['User']['active'] = 0;			
+			$this->data['Group']['id'] = '4abe2bc9-2554-427f-bb9e-e88e510ab7ac';
 			$this->User->create();
 		
 					
@@ -407,13 +409,13 @@ class MarkersController extends AppController {
 				
 				//all marker's stuff
 				
-				$this->data['Marker']['city']= Configure::read('Gov.town');
-				$this->data['Marker']['lat']= $latlng['lat'];
-				$this->data['Marker']['lon']= $latlng['lng'];
+				$this->data['Marker']['city'] = Configure::read('Gov.town');
+				$this->data['Marker']['lat'] = $latlng['lat'];
+				$this->data['Marker']['lon'] = $latlng['lng'];
 	
 							
-				$this->data['Marker']['user_id']= $this->User->id;
-				$this->data['Marker']['processcat_id']= 1;			
+				$this->data['Marker']['user_id'] = $this->User->id;
+				$this->data['Marker']['processcat_id'] = 1;			
 	
 				
 				// now unbind user-relation in order to save
@@ -456,8 +458,8 @@ class MarkersController extends AppController {
 													'default',
 													array('class' => 'flash_error'));
 				}
-			$this->data['User']['passwd']=null;
-			$this->data['User']['password']=null;
+			$this->data['User']['passwd'] =null;
+			$this->data['User']['password'] =null;
 	
 			}
 	
@@ -469,8 +471,8 @@ class MarkersController extends AppController {
 		$this->set(compact('districts'));
 		$processcats = $this->Marker->Processcat->find('list');
 		$this->set(compact('processcats'));
-		$this->data['User']['passwd']=null;
-		$this->data['User']['password']=null;
+		$this->data['User']['passwd'] = null;
+		$this->data['User']['password'] = null;
 		$this->data['Marker']['street'] = $this->Session->read('addAdress.street');
 		$this->data['Marker']['zip'] = $this->Session->read('addAdress.zip');
 
@@ -543,10 +545,10 @@ class MarkersController extends AppController {
 			$address .= ' '.$this->data['Marker']['zip'];
 			$address .= ' '.Configure::read('Gov.town');
 			$latlng = $this->Geocoder->getLatLng($address);
-			$this->data['Marker']['lat']= $latlng['lat'];
-			$this->data['Marker']['lon']= $latlng['lng'];
+			$this->data['Marker']['lat'] = $latlng['lat'];
+			$this->data['Marker']['lon'] = $latlng['lng'];
 			
-			$this->data['Comment'][0]['status']= 1;
+			$this->data['Comment'][0]['status'] = 1;
 			$this->data['Comment'][0]['group_id']	= $uGroupAdmin;
 			$this->data['Comment'][0]['user_id']	= $this->Auth->user('id');
 			$this->data['Comment'][0]['comment']	= $this->data['Marker']['admincomment'];
@@ -572,12 +574,12 @@ class MarkersController extends AppController {
 					$this->Email->sendAs = 'text';  
 					$this->set('user', $client['User']['nickname']);
 					$this->set('markerId', $this->Marker->id);
-					$this->set('sitename',Configure::read('Site.domain'));
-					$this->set('comment',$this->data['Comment'][0]['comment']);
+					$this->set('sitename', Configure::read('Site.domain'));
+					$this->set('comment', $this->data['Comment'][0]['comment']);
 					//$processcat =
 				    //$this->set('votes', $this->Markers->find('count'));
 				    $this->Marker->Processcat->recursive = -1;
-					$this->set('processcat',$this->Marker->Processcat->read('Name',$this->data['Marker']['processcat_id']));
+					$this->set('processcat', $this->Marker->Processcat->read('Name', $this->data['Marker']['processcat_id']));
 	
 					//$this->set('processcat',$processcat));
 					$this->Email->send();
@@ -665,8 +667,8 @@ class MarkersController extends AppController {
 			$address .= ' '.$this->data['Marker']['zip'];
 			$address .= ' '.Configure::read('Gov.town');
 			$latlng = $this->Geocoder->getLatLng($address);
-			$this->data['Marker']['lat']= $latlng['lat'];
-			$this->data['Marker']['lon']= $latlng['lng'];
+			$this->data['Marker']['lat'] = $latlng['lat'];
+			$this->data['Marker']['lon'] = $latlng['lng'];
 
 			if ($this->Marker->saveAll($this->data)) {
 				$this->Session->setFlash(__('This marker has been saved.',true), 
@@ -726,7 +728,7 @@ class MarkersController extends AppController {
 	$splitCity=explode(" ", $address[1]);
 		
 		$this->data['Marker']['zip'] 	= $splitCity[0];
-		$this->data['Marker']['city']= Configure::read('Gov.town');
+		$this->data['Marker']['city'] = Configure::read('Gov.town');
 
 		$fields = array($this->data['Marker']['lat'],$this->data['Marker']['lon']);
 		$this->Marker->id = $id;
