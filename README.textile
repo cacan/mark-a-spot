@@ -5,7 +5,7 @@ http://www.mark-a-spot.org
 
 A map-based platform to display, categorize, rate and comment places in an urban environment
 
-@copyright  2010 Holger Kreis <holger@markaspot.org>
+@copyright  2010 Holger Kreis <holger[at]markaspot.org>
 @license    http://www.gnu.org/licenses/agpl-3.0.txt GNU Affero General Public License
 @link       http://mark-a-spot.org/
 @version    0.98
@@ -15,14 +15,14 @@ A map-based platform to display, categorize, rate and comment places in an urban
 h2. Installation Instructions
 
 - Copy the directory or it's content into the documentroot of your webserver
-- Create a database and import app/config/sql/mas.sql/
+- Create a database and import the dump to be found at app/config/sql/mas.sql/
 
 
 
 
 h3. Configure files
 
-- Open database.php.default and create db-connect.Rename.
+- Open app/config/database.php.default and create db-connect. Rename the file.
 - Open mark-a-spot.php and change default values.
 - Open /webroot/js/markers.js and change default values 
 	of conf.object (Town, Subdirectory, Default Latlon)
@@ -33,9 +33,9 @@ h3. Configure files
 
 h3. Configure the database
 
-- Login with admin@markaspot.org:test123 for Sysadmin Access
-- Change Password /(subdirectory)/users
-- Deactivate scaffolding in users_controller
+- Login with admin@markaspot.org:test123 for Sysadmin's access
+- Change Password in /(subdirectory)/users
+- Deactivate scaffolding in app/controllers/users_controller.php
 
 
 
