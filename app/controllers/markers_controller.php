@@ -35,8 +35,8 @@ class MarkersController extends AppController {
 	var $components = array(
 						'RequestHandler', 
 						'Geocoder', 
-						'Email', 
 						'Cookie', 
+						'Notification', 
 						//'Recaptcha'
 						);
 	
@@ -266,26 +266,30 @@ class MarkersController extends AppController {
 	 *
 	 */
 	function ajaxMyList() {
-		if ($this->params['named']['processcat']) {
+		//exit;
+		$condition = '';
+		if ($this->params['named']) {
 			$condition = array('Marker.processcat_id' => $this->params['named']['processcat']);
 			// Set ProcessCat for heading
 			$this->Marker->Processcat->recursive = -1;
 			$this->set('processcat', $this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
 		
-		} elseif ($this->params['named']['cat']) {
+		} elseif ($this->params['named']) {
 			$condition = array('Marker.cat_id' => $this->params['named']['cat']);
 			// Set Cat for heading
 			$this->Marker->Cat->recursive = -1;
 			$this->set('cat', $this->Marker->Cat->read('Name', $this->params['named']['cat']));	
 		}
 		
-		$this->set('getIdCat', $this->params['named']['cat']);	
-		$this->set('getIdProcesscat', $this->params['named']['processcat']);	
-
+		if ($this->params['named']){
+			$this->set('getIdCat', $this->params['named']['cat']);
+		}
+		if ($this->params['named']) {
+			$this->set('getIdProcesscat', $this->params['named']['processcat']);	
+		}	
 		$this->Marker->Cat->recursive = -1;
 		$cats = $this->Marker->Cat->find('all');
-		$this->set('cats',$cats);
-		
+		$this->set('cats', $cats);
 		$this->Marker->Processcat->recursive = -1;
 		$processcats = $this->Marker->Processcat->find('all');
 		$this->set('processcats',$processcats);
@@ -327,25 +331,10 @@ class MarkersController extends AppController {
 				$this->Marker->saveField('transaction_id', $this->Marker->Transaction->id);				
 
 				
-				/**
-				 * send confirmation Mail
-				 *
-				 *
-				  
-				
-				$this->Email->to = $this->Auth->user('email_address');
-				$this->Email->subject = Configure::read('e-mail.add.subject');
-				$this->Email->replyTo = 'noreply@'.Configure::read('Site.domain');
-				$this->Email->from = Configure::read('Site.admin.name').'<'.Configure::read('Site.e-mail').'>';
-				$this->Email->template = 'welcome';
-				$this->Email->sendAs = 'text';  
-				$this->set('user', $this->Auth->user('nickname'));
-				$this->set('markerId', $this->Marker->id);
-				$this->set('sitename',Configure::read('Site.domain'));
-				$this->Email->send();
-				//Senden
-				
-				*/
+				// send confirmation Mail
+				$recipient = $this->Auth->user('email_address');
+				$this->Notification->sendMessage("markeradd",$this->Marker->id,$recipient);
+
 				$this->redirect(array('controller'  => 'markers', 'action' => 'app'));
 			} else {
 				$this->Session->setFlash(__('This marker could not be saved.',true), 
@@ -432,25 +421,9 @@ class MarkersController extends AppController {
 					
 					// send confirmation Mail with confirmation Link
 					// plus preview_link
-					$this->Email->to = $this->data['User']['email_address'];
-					$this->Email->subject = Configure::read('e-mail.subject');
-					$this->Email->replyTo = 'noreply@'.Configure::read('Site.domain');
-					$this->Email->from = Configure::read('Site.admin.name').'<'.Configure::read('Site.e-mail').'>';
-					$this->Email->template = 'welcome';
-					$this->Email->sendAs = 'text';  
-					$this->set('user', $this->data['User']['nickname']);
-					
-					if ($this->data['User']['email_address']) {
-						$this->set('email', $this->data['User']['email_address']);
-					}
-					if ($this->data['User']['password']) {
-						$this->set('password', $this->data['User']['passwd']);
-					}
-					$this->set('userId', $this->User->id);
-					$this->set('markerId', $this->Marker->id);
+				    $recipient = $this->data['User']['email_address'];		
+					$this->Notification->sendMessage("welcome", $this->Marker->id, $recipient);
 
-					$this->set('sitename',Configure::read('Site.domain'));
-					$this->Email->send();
 	
 					$this->redirect(array('controller'  => 'markers', 'action' => 'app'));
 				} else {
@@ -549,7 +522,7 @@ class MarkersController extends AppController {
 			$this->data['Marker']['lon'] = $latlng['lng'];
 			
 			$this->data['Comment'][0]['status'] = 1;
-			$this->data['Comment'][0]['group_id']	= $uGroupAdmin;
+			$this->data['Comment'][0]['group_id']	= Configure::read('userGroup.admins');
 			$this->data['Comment'][0]['user_id']	= $this->Auth->user('id');
 			$this->data['Comment'][0]['comment']	= $this->data['Marker']['admincomment'];
 
@@ -566,24 +539,11 @@ class MarkersController extends AppController {
 
  				$client = $this->Marker->read(null, $id);
 				if ($this->data['Marker']['notify'] == 1) {
-					$this->Email->to = $client['User']['email_address'];
-					$this->Email->subject = Configure::read('e-mail.admin.subject');
-					$this->Email->replyTo = 'noreply@'.Configure::read('Site.domain');
-					$this->Email->from = Configure::read('Site.admin.name').'<'.Configure::read('Site.e-mail').'>';
-					$this->Email->template = 'update';
-					$this->Email->sendAs = 'text';  
-					$this->set('user', $client['User']['nickname']);
-					$this->set('markerId', $this->Marker->id);
-					$this->set('sitename', Configure::read('Site.domain'));
-					$this->set('comment', $this->data['Comment'][0]['comment']);
-					//$processcat =
-				    //$this->set('votes', $this->Markers->find('count'));
-				    $this->Marker->Processcat->recursive = -1;
-					$this->set('processcat', $this->Marker->Processcat->read('Name', $this->data['Marker']['processcat_id']));
-	
-					//$this->set('processcat',$processcat));
-					$this->Email->send();
-					//Senden
+
+
+				    $recipient = $client['User']['email_address'];
+					$this->Notification->sendMessage("update", $this->Marker->id, $recipient);
+
 					$this->Session->setFlash(sprintf(__('The Marker ID# %s has been saved. 
 															The user will be notified by e-mail.',true),
 															$this->Marker->id), 
