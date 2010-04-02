@@ -34,11 +34,13 @@ class NotificationComponent extends Object {
 		$this->Session->write('hashyToken', $hashyToken);		
 		$this->Controller->set('hashyToken', $hashyToken);
 		
-		//Update
+		// Update
 		$this->Controller->{$this->Controller->modelClass}->Processcat->recursive = -1;
 		$this->Controller->set('processcat',
 			$this->Controller->{$this->Controller->modelClass}->Processcat->read('Name',
 			$this->Controller->data['Marker']['processcat_id']));
+		
+		// Set Comment only on Update
 		if ($template == "update") {
 			$this->Controller->set('comment', $this->Controller->data['Comment'][0]['comment']);
 		}
@@ -50,7 +52,7 @@ class NotificationComponent extends Object {
 		}
 		
 		$this->Controller->set('markerId', $markerId);
-		$this->Controller->set('sitename',Configure::read('Site.domain'));
+		$this->Controller->set('sitename', Configure::read('Site.domain'));
 
 		// Email senden
 		if ($this->Email->send()) {
