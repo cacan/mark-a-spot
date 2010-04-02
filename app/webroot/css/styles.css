@@ -843,6 +843,7 @@ border:0;
 border-bottom:1px solid #ddd
 }
 
+/*
 a.link_view {
 font-weight:700;
 padding:5px 20px;
@@ -868,24 +869,44 @@ background:#f2f2f2 url('../img/sprite.png') no-repeat -40px -125px;
 display:none;
 border:5px solid red
 }
+*/
 
-a.link_edit {
-font-weight:700;
-padding:5px 20px;
-background:transparent url('../img/sprite.png') no-repeat -75px -135px
+
+ a.link_edit,
+ a.link_delete  {
+padding:4px 10px 3px 24px;
+border: 1px solid #f2f2f2;
+border:1px solid #ddd;
+color: #000;
+font-size: 80%;
+text-decoration: none;
+font-weight: 400;
+-moz-border-radius: 10px; 
+-webkit-border-radius: 10px;
+text-shadow: #fff 1px 3px ; 
 }
 
-#details a.link_edit:hover,
-td a.link_edit:hover {
-padding:20px;
-background:#f2f2f2 url('../img/sprite.png') no-repeat -65px -125px;
-display:none;
-border:5px solid #ddd
+ a.link_edit {
+background: #f8f8f8 url("../img/sprite.png") no-repeat -5px -29px;
+}
+
+a.link_delete  {
+background: #f8f8f8 url("../img/sprite.png") no-repeat -5px -78px;
+}
+
+#details a.link_edit:hover{
+border: 1px solid #ccc;
+background: #fff url("../img/sprite.png") no-repeat -5px -29px;
+}
+
+#details a.link_delete:hover {
+border: 1px solid #ccc;
+background:transparent url('../img/sprite.png') no-repeat -5px -78px;
 }
 
 #details .actions {
-background: #f6f6f6;
-padding: 10px;
+background: #ffff;
+padding: 10px 0;
 margin: 0 0 10px 0
 }
 
@@ -2099,7 +2120,7 @@ a img,#jquery-lightbox a img {
 border:none
 }
 
-fieldset legend,fieldset fieldset legend,form br,.link_view span,.link_delete span,.link_edit span,noscript .link_view span,noscript.link_delete span,noscript .link_edit span,.footer_inner.right h3 a span,h3#h3_media,h3#h3_map,h3#h3_detail,div.rating-notext {
+fieldset legend,fieldset fieldset legend,form br,.link_view span, noscript .link_view span,noscript.link_delete span, noscript, .footer_inner.right h3 a span,h3#h3_media,h3#h3_map,h3#h3_detail,div.rating-notext {
 display:none
 }
 
