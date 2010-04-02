@@ -902,7 +902,7 @@ padding:5px 0;
 background:none
 }
 
-#tabAll table td  a.lightbox.map{
+td  a.lightbox.map{
 text-decoration:none;
 float:right;
 margin: 0px;
@@ -912,12 +912,12 @@ background:transparent url('../img/sprite.png') no-repeat -14px -1290px;
 font-size: 10%;
 }
 
-#tabAll table td  a.lightbox.map:hover{
+td  a.lightbox.map:hover{
 text-decoration:none;
 background:#f2f2f2 url('../img/sprite.png') no-repeat -14px -1290px;
 }
 
-#tabAll table td  a.lightbox.map span{
+td  a.lightbox.map span{
 display:none;
 }
 

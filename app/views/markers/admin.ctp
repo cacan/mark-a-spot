@@ -90,7 +90,7 @@ echo $validation->bind('Marker');
 				echo $form->input('Marker.cat_id',array('label' => __('Category',true), 'empty' => 'Please choose'));
 				echo $form->input('Marker.processcat_id',array('label' => __('Status of Administration',true), 'disabled' => false));
 				echo $form->hidden('Comment.0.name', array('value'=>$currentUser['User']['nickname'])); 
-				echo $form->input('Marker.notify', array('type' => 'checkbox', 'label' => 'Notify User'));
+				echo $form->input('Marker.notify', array('type' => 'checkbox', 'label' => __('Notify User',true),'checked'=>'checked'));
 				echo $form->hidden('Comment.0.email', array('value'=>$currentUser['User']['email_address'])); 
 				echo $form->input('Marker.admincomment', array('type' => 'textarea', 'label' => 'Comment', 'value'=>''));
 				echo $form->input('Comment.0.status', array('type' => 'hidden', 'value'=>'1'));

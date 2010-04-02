@@ -74,7 +74,6 @@ echo $this->element('head');?>
 			</ul>
 				<?php 					
 					echo $this->element('intro_'.$lang);
-					echo $lang;
 				?>
 		</div>	
 		<hr class="hidden"/>
