@@ -22,6 +22,7 @@ class AppController extends Controller {
 	var $components = array('Auth', 'Cookie');
 	
 	function beforeFilter(){		
+				
 		//Override default fields used by Auth component
 		$this->Auth->fields = array('username' => 'email_address', 'password'=>'password');
 		$this->Auth->loginError = __('User or password can not be found. Please try once more!', true);
@@ -55,6 +56,7 @@ class AppController extends Controller {
 		
 		//Read Mark-A-Spot Config app-wide
 		Configure::load('mark-a-spot');
+		
 		$this->_setLanguage();
 		
 		$this->set('googleCenter', Configure::read('Google.Center'));

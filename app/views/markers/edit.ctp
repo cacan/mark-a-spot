@@ -58,9 +58,12 @@ echo $validation->bind('Marker');
 
 
 	<div id="content">
-		<h2 id="h2_title"><?php __('Edit marker');?></h2>
-		<?php echo $this->element('ajaxlist_element'); ?>
-		<?php echo $html->link(__('Details', true), array('action' => 'view', $marker['Marker']['id']),array('class'=>'link_view')); ?>
+	<h2 id="h2_title"><?php echo $marker['Marker']['subject'];?></h2>
+	<?php echo $this->element('ajaxlist_element'); ?>
+	<hr class="hidden"/>
+	<div id="details">
+		<h3 id="h3_detail"><?php __('Details');?></h3>
+			<div class="actions"><h4 class="hidden"><?php __('Actions');?></h4>
 				<?php 
 					// gehoert der Marker diesem User?
 					if ($marker['Marker']['user_id'] == $session->read('Auth.User.id')) {	
@@ -73,6 +76,8 @@ echo $validation->bind('Marker');
 						echo ' '.$html->link(__('delete', true), array('action' => 'delete', $marker['Marker']['id']),array('class'=>'link_delete'), sprintf(__('Are you sure to delete Marker # %s?', true), $marker['Marker']['id']));
 					} 
 					?>
+				</div>
+
 		<?php echo $form->create('Markers', array('enctype' => 'multipart/form-data', 'action' => 'edit'))?>	
 		<fieldset>
 	 		<legend><?php __('Edit marker');?></legend>
@@ -87,7 +92,7 @@ echo $validation->bind('Marker');
 				
 			
 				
-				
+		</div>
 	</div>
 	<div id="sidebar">
 		<h3 id="h3_map"><?php __('Map view');?></h3>

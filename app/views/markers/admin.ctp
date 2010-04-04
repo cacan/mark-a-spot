@@ -106,6 +106,7 @@ echo $validation->bind('Marker');
 				echo $form->end();?>
 				
 		<h3 id="h3_comments"><?php __('Comments');?></h3>
+		
 		<?php if (!empty($comments)):?>
 			<?php
 				$i = 0;
@@ -116,28 +117,30 @@ echo $validation->bind('Marker');
 					}
 		
 				
-				if ($comment['Comment']['group_id']==$uGroupAdmin) {
+				if ($comment['Comment']['group_id'] == $uGroupAdmin) {
 					$commentsClass ='marker_comment_admin';
 				} else {
 					$commentsClass="marker_comment";
 				}
 				?>
-				<div id="<?php echo $comment['Comment']['id']; ?>" class="<?php echo $commentsClass ?>">
+				<div id="comment_<?php echo $comment['Comment']['id']; ?>" title="<?php echo $comment['Comment']['id']; ?>" class="<?php echo $commentsClass ?>">
 				<?php 
 				switch ($comment['Comment']['status']) {
 				  case "1":
-				    $linktext=__('block',true);
+				    $linktext = __('block',true);
+				    $commentAdminClass = "c_published";
 			        break;
 
 				  case "0":
-				    $linktext=__('publish',true);
+				    $linktext = __('publish',true);
+				    $commentAdminClass = "c_hidden";
 			        break;
 
 				 }
 
 				
-				?><a class="commentAdmin" href="#"><?php echo $linktext?></a> <a class="commentDelete" href="#"><?php echo 'delete';?></a>
-					<p><?php echo $comment['Comment']['comment'];?></p>
+				?><div class="comment_admin"><a class="comment_publish" id="publish_<?php echo $comment['Comment']['id']; ?>"href="#"><?php echo $linktext?></a> <a class="comment_delete" id="delete_<?php echo $comment['Comment']['id']; ?>" href="#"><?php echo 'delete';?></a></div>
+					<p class="<?php echo $commentAdminClass; ?>"><?php echo $comment['Comment']['comment'];?></p>
 					<small class="comment_meta">schrieb <?php echo $comment['Comment']['name'];?> am <?php echo $datum->date_de($comment['Comment']['created'],1);?></small>
 				</div>
 			<?php endforeach; ?>
