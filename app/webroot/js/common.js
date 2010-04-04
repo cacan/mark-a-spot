@@ -3,12 +3,15 @@ $(document).ready(function(){
 	var confCommon = {
 		masDir		:	'/',
 		//masDir		:	'/markaspot/',
-		searchLabelAddress		:	'nach Ort suchen',
-		searchLabelContent		:	'in Hinweisen suchen',
-		searchSubmitValueLoc	:	'Ort suchen',
-		searchSubmitValueMarker	:	'Hinweis suchen',
-		searchMap	: 'karte',
-		searchSearch	: 'search'	
+		searchLabelAddress : 'nach Ort suchen',
+		searchLabelContent : 'in Hinweisen suchen',
+		searchSubmitValueLoc : 'Ort suchen',
+		searchSubmitValueMarker : 'Hinweis suchen',
+		searchMap : 'karte',
+		searchSearch : 'search',
+		commentPublish : 'veröffentlichen',
+		commentHide : 'sperren',
+		commentDelete : 'delete'
 	};
 
 	//fadeout flash messages on click
@@ -108,7 +111,7 @@ $(document).ready(function(){
 			alert(parent.attr('id'));
 			$.ajax({
 				type: 'get',
-				url: '/markers/delete/'+ parent.attr('id'),
+				url: '/markers/delete/'+ parent.attr('title'),
 				beforeSend: function() {
 					parent.animate({'backgroundColor':'#fb6c6c'},1300);
 				},
@@ -120,28 +123,31 @@ $(document).ready(function(){
 			});
 		});
 
-	$('a.commentAdmin').click(function(e) {
+	$('a.comment_publish').click(function(e) {
 		e.preventDefault();
-		var parent = $(this).parent();
-		$.get('/comments/free/'+ parent.attr('id'), function(data){
-			id=parent.attr('id');
+		var parent = $(this).parent().parent();
+		
+		$.get('/comments/free/'+ parent.attr('title'), function(data){
+			id=parent.attr('title');
 			if (data == 1) {   	
-				$('#'+id).find("a").html('freigeben');
-				$('#'+id).find("p").css('color', 'red');
-			} else  {
-				$('#'+id).find("a").html('sperren');
-				$('#'+id).find("p").css('color', 'green');
+				$('#publish_'+id).html(confCommon.commentHide);
+				$('#comment_'+id).find("p").removeClass('c_hidden');
+				$('#comment_'+id).find("p").addClass('c_publish');
+			} else {   	
+				$('#publish_'+id).html(confCommon.commentPublish);
+				$('#comment_'+id).find("p").removeClass('c_publish');
+				$('#comment_'+id).find("p").addClass('c_hidden');
 			}
 		});
 	});
-	$('a.commentDelete').click(function(e) {
+	$('a.comment_delete').click(function(e) {
 		e.preventDefault();
-		var parent = $(this).parent();
+		var parent = $(this).parent().parent();
 		
-		$.get('/comments/delete/'+ parent.attr('id'), function(data){
+		$.get('/comments/delete/'+ parent.attr('title'), function(data){
 			id=parent.attr('id');
 			if (data == 1) {   	
-				$('#'+id).find("a.commentDelete").html('deleted');
+				$('#comment_'+id).find("a.commentDelete").html(confCommon.commentDelete);
 				parent.animate({'backgroundColor':'#fb6c6c'},1300);
 				parent.slideUp(300,function() {
 					parent.remove();
