@@ -33,7 +33,7 @@
 						echo $form->input(__('email',true), array('div' => 'input text required', 'label'  => 'E-Mail')); }
 					else {
 						echo $form->input(__('name',true), array('label'  => 'Name', 'value'=>$currentUser['User']['nickname']));
-						echo $form->input(__('e-mail',true), array('label'  => 'E-Mail', 'value'=>$currentUser['User']['email_address']));
+						echo $form->input(__('email',true), array('label'  => 'E-Mail', 'value'=>$currentUser['User']['email_address']));
 					}
 					echo $form->input(__('comment',true), array('div' => 'input text required', 'label'  => 'Comment'));
 				?>

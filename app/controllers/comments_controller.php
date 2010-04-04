@@ -31,97 +31,108 @@ class CommentsController extends AppController {
 
 
 
-    /**
-     *
-     * call comments post from Marker's view
-     *
-     */
+	/**
+	 *
+	 * call comments post from Marker's view
+	 *
+	 */
 	function commentsadd() { 
-        if (!empty($this->data)) { 
-        	
-        	$this->data['Comment']['marker_id'] = $this->data['Comment']['marker_id'];
-     
-     		// publish comments?
-            if (!Configure::read('Publish.Comments')) {
+		if (!empty($this->data)) { 
+		
+		// $this->data['Comment']['marker_id'] = $this->data['Comment']['marker_id'];
+			
+			// publish comments?
+			if (!Configure::read('Publish.Comments')) {
 				$this->data['Comment']['status'] = 0; 
 			} else {
 				$this->data['Comment']['status'] = 1;
-			}	            
-     
-            // Save GroupId for Admininstrative Comments, else random;
-			if ($this->Session->read('UserGroup')){
-				$this->data['Comment']['group_id'] = $this->Session->read('UserGroup');
-				if ($this->Session->read('UserGroup') == '4abe28d5-bab4-4ea0-a696-e930510ab7ac') {
-					$this->data['Comment']['status'] = 1;
-				} 
+			}	
+			
+			// Save GroupId for Admininstrative Comments, else random;
+			if ($this->Auth->user('id')){
+				$this->data['Comment']['group_id'] = $this->Session->read('userGroup');
 				
-
+				if ($this->Session->read('userGroup') == Configure::read('userGroup.admins')) {
+					$this->data['Comment']['status'] = 1;
+					$this->data['Comment']['user_id'] = $this->Auth->user('id');
+				} 
 			} else {
 				$this->data['Comment']['group_id'] = String::uuid();
 				$this->data['Comment']['user_id'] = String::uuid();
 			}
-          	
-           	$this->Marker->Comment->create();	
-            
-            if ($this->Marker->Comment->save($this->data)) {
-			    // Save Transaction and distinguish case UserGroup
-            	switch ($this->data['Comment']['status']){
-            		case 0:
-                		$this->Session->setFlash(__('This comment has been saved and will be soon published by authorities.',true),
-                		'default',
-                		array('class' => 'flash_success'));
-   						$this->Marker->Transaction->saveField('name', __('Commented',true));
-                	case 1:
-       					$this->Marker->Transaction->saveField('name', __('Commented by authorities',true));
-                		$this->Session->setFlash(__('This comment has been saved.',true),
-                										'default',
-                										array('class' => 'flash_success'));
-                }
-
-                
-                $this->Marker->Transaction->saveField('marker_id', $this->data['Comment']['marker_id']);
- 
-            } else { 
+			
+			$this->Marker->Comment->create();	
+			
+			if ($this->Marker->Comment->save($this->data)) {
+				// Save Transaction and distinguish case UserGroup
+				switch ($this->data['Comment']['status']){
+					case 0:
+						$this->Session->setFlash(__(
+								'This comment has been saved and will be soon published by authorities.',true),
+								'default',
+								array('class' => 'flash_success'));
+						$this->Marker->Transaction->saveField('name', __('Commented',true));
+					case 1:
+						$this->Marker->Transaction->saveField('name', __('Commented by authorities',true));
+						$this->Session->setFlash(__('This comment has been saved.',true),
+											'default',
+											array('class' => 'flash_success'));
+				}
+				$this->Marker->Transaction->saveField('marker_id', $this->data['Comment']['marker_id']);
+				
+			} else { 
 				$this->Session->setFlash(__('This comment could not be saved.',true),
-												'default',
-												array('class' => 'flash_error'));
-            } 
-        } 
-        
-        $this->redirect($this->referer(), null, true); 
-    } 
+									'default',
+									array('class' => 'flash_error'));
+			} 
+		} 
+			
+		$this->redirect($this->referer(), null, true); 
+	} 
 
-/**
-     *
-     * Action to publish comments by admin. (Ajax Call from "admin"
-     *
-     */
+
+	/**
+	 *
+	 * Action to publish comments by admin. (Ajax Call from "admin")
+	 *
+	 */
 	function free($id = null) {
 		$this->layout = 'ajax'; 
 		
 		if (!$id) {
-					$this->Session->setFlash(__('This comment does not exist',true), 'default',array('class' => 'flash_error'));
+					$this->Session->setFlash(__('This comment does not exist',true), 
+						'default',
+							array('class' => 'flash_error'));
 					$this->redirect(array('action'=>'index'));
 		} else {
 		
 			$this->Comment->id = $id;
 			$isStatus = $this->Comment->read('status', $id);
 			$this->set('isStatus', $isStatus['Comment']['status']);
+		
 			if ($isStatus['Comment']['status'] == 0) {
 				if ($this->Comment->saveField('status', 1, $validate = false));
 				
-				$marker_id = $this->Comment->read('marker_id', $id);
-				$this->Marker->Transaction->saveField('marker_id', $marker_id['Comment']['marker_id']);
-				$this->Marker->Transaction->saveField('name', __('Comment published',true));
+					$marker_id = $this->Comment->read('marker_id', $id);
+					$this->Marker->Transaction->saveField('marker_id', $marker_id['Comment']['marker_id']);
+					$this->Marker->Transaction->saveField('name', __('Comment published',true));
 			
 			} else {
+			
 				if ($this->Comment->saveField('status', 0, $validate = false));
+				/*
+				{
+				$marker_id = $this->Comment->read('marker_id', $id);
+				$this->Marker->Transaction->saveField('marker_id', $marker_id['Comment']['marker_id']);
+				$this->Marker->Transaction->saveField('name', __('Kommentar gesperrt',true));
+				
+			}*/
 			}	
 		}
 	
 		if ($this->RequestHandler->isAjax()) { 
+			$isStatus = $this->Comment->read('status', $id);
 			$this->set('isStatus', $isStatus['Comment']['status']);
-
 		} else {
 			$this->set('isStatus', $isStatus['Comment']['status']);
 			$this->Session->setFlash(__('Status changed.', true));
@@ -130,11 +141,11 @@ class CommentsController extends AppController {
 	}
 
 
-    /**
-     *
-     * delete by admin via ajax
-     *
-     */
+	/**
+	 *
+	 * delete by admin via ajax
+	 *
+	 */
 	function delete($id = null) {
 		$this->layout = 'ajax'; 
 		Configure::write('debug', 0);
@@ -148,7 +159,7 @@ class CommentsController extends AppController {
 			//$this->Session->setFlash(__('Comment deleted', true));
 			$this->set('delete', 1);
 		} else {
-		  	$this->set('delete', 0);
+			$this->set('delete', 0);
 		}
 	}
 
