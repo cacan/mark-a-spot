@@ -87,15 +87,16 @@ class MarkersController extends AppController {
 			$this->Cookie->del('admin');
 			$this->set("userGroup", "");
 		}
-
+	      	
+	      	
 		// Can Access checks if marker belongs to user
 		if (in_array($this->action, array('delete', 'edit')) && isset($this->params['pass'][0])) {
 
 	      if (!$this->Marker->canAccess($this->Auth->user('id'), $this->params['pass'][0]) 
-	      	&& $userGroup[0]['Groups_user']['group_id'] != $uGroupSysAdmin 
-	      	&& $userGroup[0]['Groups_user']['group_id'] != $uGroupAdmin) {
+	      	&& $userGroup != $uGroupSysAdmin && $userGroup != $uGroupAdmin) {
+	      	
 				$this->Session->setFlash(__('You are not allowed here!',true), 'default',array('class' => 'flash_error'));
-				$this->redirect(array('action' => 'index'));
+				//$this->redirect(array('action' => 'index'));
 			}
 		}
 	}
@@ -127,6 +128,7 @@ class MarkersController extends AppController {
 	 *
 	 */	
 	function index() {
+
 		$this->layout = 'default_splash'; 
 		$this->Marker->unbindModel(array('hasMany' => array('Comment')));
 		$this->set('title', __('Welcome to mas-city.com/markaspot',true));
