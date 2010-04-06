@@ -38,8 +38,8 @@ $config['e-mail.update.subject'] = 'Your Marker has been updated';
 $config['e-mail.resetpw.subject'] = 'Passwort Reset at Mark-a-Spot / Mas-city';
 
 
-$config['Google.Key'] = 'ABQIAAAAzAaa1p0iGUs-Hzx9dW_8KhS2SIgkSweE_2mDFpyoUqumsa2_SxT-xhAfdq1FLr9zK-frbi1QKkmihw';
-$config['Google.Center'] = '52.5234051,13.4113999'; // http://www.getlatlon.com/ << there
+//$config['Google.Key'] = 'ABQIAAAAzAaa1p0iGUs-Hzx9dW_8KhS2SIgkSweE_2mDFpyoUqumsa2_SxT-xhAfdq1FLr9zK-frbi1QKkmihw';
+$config['Google.Center'] = '50.5234051,6.89113999'; // http://www.getlatlon.com/ << there
 
 
 $config['Publish.Markers'] = 1;
