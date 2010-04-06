@@ -12,7 +12,7 @@ A map-based platform to display, categorize, rate and comment places in an urban
  
 
 
-h2. Installation Instructions
+h2. Installation Instructions for development environment
 
 - Copy the directory or it's content into the documentroot of your webserver
 - Create a database and import the dump to be found at app/config/sql/mas.sql/
