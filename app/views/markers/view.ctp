@@ -104,9 +104,9 @@ echo '</ul>';
 					<span><?php echo $marker['Processcat']['name']; ?></span>
 				</dd>
 			
-				<dt class="marker_hint"><?php __('Description'); ?></dt>
-				<dd class="marker_hint_text">
-					<?php echo $marker['Marker']['hint']; ?>
+				<dt class="marker_descr"><?php __('Description'); ?></dt>
+				<dd class="marker_descr_text">
+					<?php echo $marker['Marker']['descr']; ?>
 				</dd>
 			
 				<dt class="marker_adress"><?php __('Address'); ?></dt>
@@ -116,7 +116,7 @@ echo '</ul>';
 			</dl>
 			<?php } ?>
 	</div>
-	<div id="hint_meta">
+	<div id="descr_meta">
 		<small><?php __('added: '); ?> <?php echo $datum->date_de($marker['Marker']['created']) ?> <?php __('by '); ?> <?php echo $marker['User']['nickname']; ?> | <?php __('last edited on'); ?>	<?php echo $datum->date_de($marker['Marker']['modified']) ?></small>
 	</div>
 	<div id="ratings">

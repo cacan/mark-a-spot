@@ -98,7 +98,7 @@ class Marker extends AppModel {
 		 // Suche Plugin 
 
 		'Search.Searchable' => array(
-		'fields' => array('subject', 'hint', 'street')
+		'fields' => array('subject', 'descr', 'street')
 		)
 	);
 	
@@ -111,7 +111,7 @@ class Marker extends AppModel {
 			'required' => true, 
 			'message'=> 'We need a short subject or title here'
 		),
-		'hint'	=> array(
+		'descr'	=> array(
 			'rule' => array('minLength', '1'), 
 			'required' => true, 
 			'message' => 'Is there more to say, please describe some details'
@@ -168,7 +168,7 @@ class Marker extends AppModel {
 			foreach ($newMarkers as $marker):
 							if ($marker['Marker']['processcat_id'] == 1) {
 								$marker['Marker']['subject'] = __('New Marker ID#',true).$marker['Marker']['id'];
-								$marker['Marker']['hint'] = __('Not yet published',true);
+								$marker['Marker']['descr'] = __('Not yet published',true);
 			
 							}
 							$markers[]= $marker;

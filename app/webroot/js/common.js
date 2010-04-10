@@ -181,7 +181,7 @@ $(document).ready(function(){
 	    sync:          1,     // true if in/out transitions should occur simultaneously 
 	    fit:           1,     // force slides to fit container 
 	    pause:         1,     // true to enable "pause on hover" 
-	    delay:         0,     // additional delay (in ms) for first transition (hint: can be negative) 
+	    delay:         0,     // additional delay (in ms) for first transition (descr: can be negative) 
 	    slideExpr:     null   // expression for selecting slides (if something other than all children is required) 	
 	});
   

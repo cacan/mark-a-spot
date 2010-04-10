@@ -52,7 +52,7 @@ var conf = {
 		TabCommonStatus : 'Status',
 		TabCommonRating : 'Rating',
 		TabCommonDetails : 'View details',
-		TabCommonNewHint : 'Add Marker here',
+		TabCommonNewDescr : 'Add Marker here',
 		TabCommonLinkText : 'Jump to detailed page'
 	},
 	Sidebar: {
@@ -95,7 +95,7 @@ var conf = {
 		TabCommonStatus			:	'Status',
 		TabCommonRating			:	'Bewertung',
 		TabCommonDetails		:	'Details zu diesem Hinweis',
-		TabCommonNewHint		:	'Ein neuer Hinweis',
+		TabCommonNewDescr		:	'Ein neuer Hinweis',
 		TabCommonLinkText		:	'zu den Details'
 	},
 	Sidebar: {
@@ -106,7 +106,7 @@ var conf = {
 		ViewsLabelStatus	:	'Status',
 		ViewsLabelRatings	:	'Bewertung',
 		ViewsList			:	'Tabellenansicht',
-		TabCommonNewHint		:	'Ein neuer Hinweis',
+		TabCommonNewDescr		:	'Ein neuer Hinweis',
 		TabCommonLinkText		:	'zu den Details'
 	},
 	Url: {
@@ -172,7 +172,7 @@ $(document).ready(function () {
 		$('#tab').hide();
 		$('#map_wrapper_xl').append('<div id="map"></div>');
 		resizeMap(); 
-		$('#hintslist').append('<ul id="markersidebar"></ul>'); 
+		$('#descrslist').append('<ul id="markersidebar"></ul>'); 
 			
 		// View-Logic Sidebar
 
@@ -448,7 +448,7 @@ $(document).ready(function () {
 							
 				
 				var marker= new GMarker(latlon, markerOptions);
-				var fn  = markerClickFn(markers[item], html1, html2, html3, html4, item.Marker.hint, latlon,id);
+				var fn  = markerClickFn(markers[item], html1, html2, html3, html4, item.Marker.descr, latlon,id);
 				var fn1 = markerDragFn(markers[item], html1, html2, id);
 
 				
@@ -507,13 +507,13 @@ $(document).ready(function () {
 	 * all other functions following 
 	 *
 	 */	
-	function markerClickFn(marker, html1, html2, html3, html4, hint,latlon,id) {
+	function markerClickFn(marker, html1, html2, html3, html4, descr,latlon,id) {
 		return function() {
 			map.panTo(latlon); 				
 			var url = conf.masDir + 'markers/maprate?id=' + id;		
 			var htmlmarker = [];
 			htmlmarker.push(new GInfoWindowTab(conf.Infwin.TabCommon, '<div class="inf"' + html1 + html2 + html3 + html4 + '</div>'));
-			//htmlmarker.push(new GInfoWindowTab(conf.Infwin.TabDetail, '<div class="inf"><h4>'+ conf.Infwin.TabCommonDetails + '</h4>'+hint+'</div>'));
+			//htmlmarker.push(new GInfoWindowTab(conf.Infwin.TabDetail, '<div class="inf"><h4>'+ conf.Infwin.TabCommonDetails + '</h4>'+descr+'</div>'));
 			map.openInfoWindowTabs(latlon, htmlmarker);
 			//hol das rating
 			 $.get(url, function(data){
@@ -632,7 +632,7 @@ $(document).ready(function () {
 			
 			map.panTo(point);
 			map.addOverlay(marker);
-			marker.openInfoWindowHtml('<h4>Position</h4>' + '<div id="newPos">'+ place.address + '</div>' + '<div><a href="' + conf.masDir + 'markers/startup/new/'+ addressArray[0]+'/'+ zip +'">'+ conf.Infwin.TabCommonNewHint +' </a></div>',{maxWidth:250});
+			marker.openInfoWindowHtml('<h4>Position</h4>' + '<div id="newPos">'+ place.address + '</div>' + '<div><a href="' + conf.masDir + 'markers/startup/new/'+ addressArray[0]+'/'+ zip +'">'+ conf.Infwin.TabCommonNewDescr +' </a></div>',{maxWidth:250});
 			
 			if (getMarkerId == 9999999){
 				//map.panTo(point); 				

@@ -85,7 +85,7 @@ echo $validation->bind('Marker');
 				echo $form->input('Marker.street', array('label' => __('Address',true)));
 				echo $form->input('Marker.zip', array('maxlength'=>'5', 'label' => __('Zip',true)));
 				
-				echo $form->input('Marker.hint', array('label' => __('Description',true)));
+				echo $form->input('Marker.descr', array('label' => __('Description',true)));
 				echo $this->element('attachments', array('plugin' => 'media', 'model' => 'Marker'));
 				echo $form->input('Marker.cat_id',array('label' => __('Category',true), 'empty' => 'Please choose'));
 				echo $form->input('Marker.processcat_id',array('label' => __('Status of Administration',true), 'disabled' => false));

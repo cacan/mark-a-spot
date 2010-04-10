@@ -2,7 +2,7 @@
 echo $form->input('Marker.subject', array('div' => 'input text required', 'before' => __('<div>Enter a short subject</div>',true), 'maxlength'=>'128', 'label' => __('Subject',true)));
 echo $form->input('Marker.street', array('div' => 'input text required', 'before' => __('<div>Enter address or drag marker</div>',true), 'label' => __('Address',true)));
 echo $form->input('Marker.zip', array('div' => 'input text required', 'maxlength'=>'5', 'label' => __('Zip',true)));
-echo $form->input('Marker.hint', array('div' => 'input text required', 'label' => __('Describe the situation',true)));
+echo $form->input('Marker.descr', array('div' => 'input text required', 'label' => __('Describe the situation',true)));
 echo '<div id="addFormMedia"><a id="showLink" href="#addFormMedia">'.__('Add some images or media?', true).'</a>';
 echo '<div id="addFormMediaDiv">';
 echo $this->element('attachments', array('plugin' => 'media', 'model' => 'Marker'));

@@ -164,5 +164,5 @@ echo $this->element('head');
 		</div>
 		
 		<h3><?php __('Markers');?></h3>
-		<div id="hintslist"></div>
+		<div id="descrslist"></div>
 	</div>
