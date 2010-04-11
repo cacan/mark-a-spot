@@ -28,14 +28,14 @@ var processCond;
 var markersidebar = document.getElementById('markersidebar');
 var geocoder = new GClientGeocoder();
 
-
+/*
 var conf = {
 	masDir		:	'/',
 	//masDir : '/markaspot/',
-	townString : 'Berlin',
-	townZip : '1000',
-	townStreet : 'Alexanderplatz',
-	townCenter : '52.5234051, 13.4113999', // http://www.getlatlon.com/ << there
+	townString : 'Köln',
+	townZip : '50676',
+	townStreet : 'Dom',
+	townCenter : '50.82968607835879,6.8939208984375', // http://www.getlatlon.com/ << there
 	Text : {
 		NotCountry : 'This location is not in Germany',
 		NotTown	 : 'This address is not in Berlin, Germany',
@@ -74,52 +74,52 @@ var conf = {
 	}
 
 };
-/**
+*/
 var conf = {
-    //masDir		:	'/',
-	masDir		:	'/markaspot/',
+    masDir		:	'/',
+	//masDir		:	'/markaspot/',
 	townString	:	'Köln',
 	townZip		:	'50676',
 	townStreet	:	'Dom',
 	townCenter	:	'50.82968607835879, 6.8939208984375', // http://www.getlatlon.com/ << there
 	Text	:	{
-		NotCountry				:	'Dieser Punkt liegt nicht in Deutschland',
-		NotTown					:	'Dieser Punkt liegt nicht in Köln',
-		NewAdress				:	'Neue Position'
+		NotCountry :'Dieser Punkt liegt nicht in Deutschland',
+		NotTown : 'Dieser Punkt liegt nicht in Köln',
+		NewAdress : 'Neue Position'
 	},
 	Infwin:	{
-		TabCommon				:	'Allgemein',
-		TabDetail				:	'Beschreibung',
-		TabCommonSubject		:	'Neue Position',
-		TabCommonCategory		:	'Kategorie',
-		TabCommonStatus			:	'Status',
-		TabCommonRating			:	'Bewertung',
-		TabCommonDetails		:	'Details zu diesem Hinweis',
-		TabCommonNewDescr		:	'Ein neuer Hinweis',
-		TabCommonLinkText		:	'zu den Details'
+		TabCommon : 'Allgemein',
+		TabDetail : 'Beschreibung',
+		TabCommonSubject : 'Neue Position',
+		TabCommonCategory : 'Kategorie',
+		TabCommonStatus : 'Status',
+		TabCommonRating : 'Bewertung',
+		TabCommonDetails : 'Details zu diesem Hinweis',
+		TabCommonNewDescr : 'Ein neuer Hinweis',
+		TabCommonLinkText : 'zu den Details'
 	},
 	Sidebar: {
-		h3Views				:	'Anzeige',
-		h3Search			:	'Suche',
-		SearchLabel			:	'Straße und Hausnummer',
-		ViewsLabelCat		:	'Kategorie',
-		ViewsLabelStatus	:	'Status',
-		ViewsLabelRatings	:	'Bewertung',
-		ViewsList			:	'Tabellenansicht',
-		TabCommonNewDescr		:	'Ein neuer Hinweis',
-		TabCommonLinkText		:	'zu den Details'
+		h3Views : 'Anzeige',
+		h3Search : 'Suche',
+		SearchLabel : 'Straße und Hausnummer',
+		ViewsLabelCat : 'Kategorie',
+		ViewsLabelStatus : 'Status',
+		ViewsLabelRatings : 'Bewertung',
+		ViewsList : 'Tabellenansicht',
+		TabCommonNewDescr : 'Ein neuer Hinweis',
+		TabCommonLinkText : 'zu den Details'
 	},
 	Url: {
-		controllerActionAdmin	 	:	'admin',
-		controllerActionMap 		:	'karte',
-		controllerActionAdd 		:	'add',
-		controllerActionView 		:	'view',
-		controllerActionEdit 		:	'edit',
-		controllerActionStartup		:	'startup'
+		controllerActionAdmin : 'admin',
+		controllerActionMap : 'karte',
+		controllerActionAdd : 'add',
+		controllerActionView : 'view',
+		controllerActionEdit : 'edit',
+		controllerActionStartup : 'startup'
 	}
 
 };
-*/
+
 
 
 $(document).ready(function () {
@@ -578,7 +578,9 @@ $(document).ready(function () {
 			}
 			if (place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName != conf.townString) {
 				alert(conf.Text.NotTown);
-				return;
+				showLocation(conf.townStreet + ' ' + conf.townString + ' ' + conf.townZip);
+				$('#MarkerStreet').val("");
+				$('#MarkerZip').val("");
 			}
 			
 			saveUrlAddress = newlatlng.lat() + "/" + newlatlng.lng() + "/" + newAddress;
@@ -613,7 +615,9 @@ $(document).ready(function () {
 			if (place.address.search(conf.townString) == - 1) {
 				alert(place.address);
 				alert(conf.Text.NotTown);
-				return;
+				showLocation(conf.townStreet + ' ' + conf.townString + ' ' + conf.townZip);
+				$('#MarkerStreet').val("");
+				$('#MarkerZip').val("");
 			}
 			
 			var zip = "";

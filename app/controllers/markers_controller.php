@@ -234,23 +234,24 @@ class MarkersController extends AppController {
 	 */
 	function ajaxList() {
 		$condition = '';
-		if ($this->params['named']) {
+		pr($this->params['named']);
+		if ($this->params['named']['processcat']) {
 			$condition = array('Marker.processcat_id' => $this->params['named']['processcat']);
 			// Set ProcessCat for heading
 			$this->Marker->Processcat->recursive = -1;
 			$this->set('processcat', $this->Marker->Processcat->read('Name', $this->params['named']['processcat']));
 		
-		} elseif ($this->params['named']) {
+		} elseif ($this->params['named']['cat']) {
 			$condition = array('Marker.cat_id' => $this->params['named']['cat']);
 			// Set Cat for heading
 			$this->Marker->Cat->recursive = -1;
 			$this->set('cat', $this->Marker->Cat->read('Name', $this->params['named']['cat']));	
 		}
 		
-		if ($this->params['named']){
+		if ($this->params['named']['cat']){
 			$this->set('getIdCat', $this->params['named']['cat']);
 		}
-		if ($this->params['named']) {
+		if ($this->params['named']['processcat']) {
 			$this->set('getIdProcesscat', $this->params['named']['processcat']);	
 		}	
 		$this->Marker->Cat->recursive = -1;

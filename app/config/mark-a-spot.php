@@ -24,8 +24,8 @@ $config['Config.language'] = 'deu';
 $config['Auth.Norights'] = 'Sie sind nicht berechtigt, auf diesen Teil der Seite zuzugreifen';
 $config['Auth.Nologin'] = 'Benutzer oder Passwort wurden nicht gefunden: Versuchen Sie es noch einmal';
 
-$config['Gov.zip'] = '10000';
-$config['Gov.town'] = 'Berlin';
+$config['Gov.zip'] = '50676';
+$config['Gov.town'] = 'Köln';
 
 $config['Site.domain'] = 'mas-city.com';
 $config['Site.admin.name'] = 'info@markaspot.de';
@@ -33,13 +33,13 @@ $config['Site.e-mail'] = 'info@markaspot.de';
 $config['Site.name'] = 'placeceholder www.markaspot.de';
 
 $config['e-mail.welcome.subject'] = 'Welcome to Mark-a-Spot / Mas-City';
-$config['e-mail.add.subject'] = 'Your Marker at Mark-a-Spot / Musterstadt';
+$config['e-mail.markeradd.subject'] = 'Your Marker at Mark-a-Spot / Musterstadt';
 $config['e-mail.update.subject'] = 'Your Marker has been updated';
 $config['e-mail.resetpw.subject'] = 'Passwort Reset at Mark-a-Spot / Mas-city';
 
 
 //$config['Google.Key'] = 'ABQIAAAAzAaa1p0iGUs-Hzx9dW_8KhS2SIgkSweE_2mDFpyoUqumsa2_SxT-xhAfdq1FLr9zK-frbi1QKkmihw';
-$config['Google.Center'] = '50.5234051,6.89113999'; // http://www.getlatlon.com/ << there
+$config['Google.Center'] = '50.82968607835879,6.8939208984375'; // http://www.getlatlon.com/ << there
 
 
 $config['Publish.Markers'] = 1;
