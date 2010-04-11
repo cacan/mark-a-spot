@@ -67,6 +67,8 @@ echo $validation->bind(array('Marker', 'User'));
 				 	<?php echo $this->element('form_startup'); ?>
 			</fieldset>
 			<?php echo '<p>'.$html->tag('button', '<span>'.__('Save information',true).'</span>', array('type' => 'submit')).'</p>';?>
+			<?php echo $form->end();?>
+
 	</div>
 	<div id="sidebar">
 		<p><?php echo __('Please drag the Marker to the desired position or just enter street and zip details');?></p>

@@ -791,7 +791,7 @@ background: transparent url("../img/add_view_bg.jpg") no-repeat -20px -270px
 -webkit-border-radius: 5px; 
 display:none;
 position:absolute;
-z-index:20;
+z-index:50;
 top:80px;
 background:#042e60;
 padding:10px;
@@ -851,33 +851,6 @@ border:0;
 border-bottom:1px solid #ddd
 }
 
-/*
-a.link_view {
-font-weight:700;
-padding:5px 20px;
-background:transparent url('../img/sprite.png') no-repeat -11px -135px
-}
-
-td a.link_view:hover {
-padding:20px;
-background:#f2f2f2 url('../img/sprite.png') no-repeat 0 -125px;
-display:none;
-border:5px solid #ddd
-}
-
-a.link_delete {
-font-weight:700;
-padding:5px 20px;
-background:transparent url('../img/sprite.png') no-repeat -40px -135px
-}
-
-td a.link_delete:hover {
-padding:20px;
-background:#f2f2f2 url('../img/sprite.png') no-repeat -40px -125px;
-display:none;
-border:5px solid red
-}
-*/
 
 
 a.link_edit,
@@ -900,23 +873,23 @@ text-shadow: #fff 1px 1px ;
 
 
 
-a.link_view:link  {
+a.link_view  {
 background: #f2f2f2 url("../img/sprite.png") no-repeat -5px -158px;
 }
 
-a.link_edit:link {
+a.link_edit {
 background: #f2f2f2 url("../img/sprite.png") no-repeat -5px -65px;
 }
 
-a.link_delete:link  {
+a.link_delete {
 background: #f2f2f2 url("../img/sprite.png") no-repeat -5px -108px;
 }
 
-a.comment_delete:link  {
+a.comment_delete {
 background: #f2f2f2 url("../img/sprite.png") no-repeat -5px -1454px;
 }
 
-a.comment_publish:link  {
+a.comment_publish {
 background: #f2f2f2 url("../img/sprite.png") no-repeat -5px -1400px;
 }
 
@@ -963,7 +936,7 @@ background: #fff url('../img/sprite.png') no-repeat -5px -1543px;
 
 .actions {
 background: #fff;
-padding: 10px 0;
+padding: 0;
 margin: 0
 }
 
@@ -986,7 +959,7 @@ color: #AAA;
 td.actions {
 text-align:center;
 vertical-align:middle;
-width:100px
+width:200px
 }
 
 noscript a.link_view {
@@ -1022,13 +995,6 @@ display:none;
 
 
 
-td.actions {
-text-align:center;
-vertical-align:middle;
-width:100px
-}
-
-
 /**
  * CSS for the AJAX star rating plugin.
  *
@@ -1046,7 +1012,7 @@ white-space:nowrap
 }
 
 #tabAll th.actions,#tabMy th.actions {
-width:100px;
+width:150px;
 border-left:0;
 border-bottom:1px solid #ddd
 }
@@ -1727,7 +1693,7 @@ left:0;
 width:100%;
 height:100%;
 display:none;
-z-index:30
+z-index:51
 }
 
 div#fancy_loading {
@@ -2193,18 +2159,17 @@ top:0;
 left:0;
 background:transparent;
 display:block;
-z-index:10;
+z-index:29;
 width:320px;
 height:200px
 }
 
 #map_wrapper_add #map {
-width:320px;
+width:350px;
 height:430px;
-background:border:10px solid #f6f6f6;
 }
 #map_wrapper_small #map {
-width:320px;
+width:350px;
 height:320px;
 }
 #map_wrapper_splash #map {

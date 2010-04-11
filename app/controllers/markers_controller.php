@@ -464,7 +464,7 @@ class MarkersController extends AppController {
 		$data = $this->Marker->read(null, $id);
 		$this->set('marker', $data);
  		
- 		if (!$id || !$data) {
+ 		if (!$id) {
 			$this->Session->setFlash(__('This marker does not exist.',true), 
 											'default',
 											array('class' => 'flash_error'));

@@ -73,11 +73,11 @@ $(document).ready(function() {
 				echo '<option>'.__('Choose category',true).'</option>';
 				foreach ($cats as $cat):
 				if ($cat['Cat']['id'] == $getIdCat) {
-					$selected = ' selected="selected" ';
+					$selected = ' selected = "selected" ';
 				} else {
 					$selected = '';
 				}
-				echo '<option class="cat_'.$cat['Cat']['hex'].'"'.$selected.' value="'.$html->url(array('controller'  => '/markers', 'action' => 'ajaxlist', 'cat' =>$cat['Cat']['id']), array('id'=>'catId_'.$cat['Cat']['id'])).'">'.$cat['Cat']['name'].'</option>';
+				echo '<option class="cat_'.$cat['Cat']['hex'].'"'.$selected.' value="'.$html->url(array('controller'  => '/markers', 'action' => 'ajaxlist', 'cat' =>$cat['Cat']['id'])).'">'.$cat['Cat']['name'].'</option>';
 				endforeach; 
 				echo '</select>';
 			?>
@@ -92,7 +92,7 @@ $(document).ready(function() {
 
 				foreach ($processcats as $processcat):
 				if ($processcat['Processcat']['id'] == $getIdProcesscat) {
-					$selected = ' selected="selected" ';
+					$selected = ' selected = "selected" ';
 				} else {
 					$selected = '';
 				}
@@ -124,6 +124,9 @@ $(document).ready(function() {
 		</tr>
 		<?php
 		$i = 0;
+		if (!$markers) {
+			echo  __('No Markers found',true);
+		}
 		foreach ($markers as $marker):
 			$class = null;
 			if ($i++ % 2 == 0) {

@@ -81,7 +81,7 @@ echo $this->element('head');?>
 			<div id="map_wrapper_splash" style="position:relative; left: 0, right: 0">
 			<?php echo $html->link('', array('controller' => 'markers', 'action' => 'app'), array('title' => __('Click to watch the map',true), 'id' => 'start', 'escape' => false)); ?></div>
 			<noscript><p><?php 
-				echo $html->link($html->image('http://maps.google.com/staticmap?center=.<?php echo $googleCenter?>&amp;zoom=10&amp;size=320x200&amp;maptype=mobile\&amp;markers='.$googleCenter.',bluea%7C&amp;key='.$googleKey.'&amp;sensor=false'), array('controller' => 'markers', 'action' => 'app'), array('escape' => false)); ?> 
+				echo $html->link($html->image('http://maps.google.com/staticmap?center='.$googleCenter.'&amp;zoom=10&amp;size=320x200&amp;maptype=mobile\&amp;markers='.$googleCenter.',bluea%7C&amp;key='.$googleKey.'&amp;sensor=false'), array('controller' => 'markers', 'action' => 'app'), array('escape' => false)); ?> 
 			</p></noscript>
 			<div class="clear"></div>
 			<h3><?php __('Recent changes') ?></h3>

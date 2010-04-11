@@ -48,8 +48,9 @@ echo $this->element('head');
 
 ?>
 	<div id="content" class="page">
+		<h2 class="hidden"><?php __('All Markers');?></h2>
+		<?php echo $this->element('ajaxlist_element'); ?>
 		<div class="markers index">
-
 			<noscript>
 			<!--
 			
@@ -59,8 +60,6 @@ echo $this->element('head');
 			 */
 			
 			-->
-			<h2 class="hidden"><?php __('All Markers');?></h2>
-			<?php echo $this->element('ajaxlist_element'); ?>
 			<div id="listNoscript">
 				<?php
 				echo $paginator->counter(array(
@@ -112,12 +111,6 @@ echo $this->element('head');
 			</div>	
 			</noscript>
 			<h2 class="hidden"><?php __('Map&rsquo;s View');?></h2>
-		<?php echo $this->element('ajaxlist_element'); ?>
-		<?php echo $this->element('ajaxlist_element'); ?>
-
-			
-			<?php echo $this->element('ajaxlist_element'); ?>
-
 			<div id="map_wrapper_xl"></div>
 		</div>
 	</div>
