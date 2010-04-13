@@ -68,7 +68,7 @@ echo '</ul>';
 ?>
 
 
-<div id="content">
+<div id="content" title="<?php echo $marker['Marker']['id'];?>">
 	<h2 id="h2_title"><?php echo $marker['Marker']['subject'];?></h2>
 	<?php echo $this->element('ajaxlist_element'); ?>
 	<hr class="hidden"/>
@@ -150,7 +150,7 @@ echo '</ul>';
 <!-- AddThis Button END --></div>
 	<h3 id="h3_map"><?php __('Map view');?></h3>
 	<div id="maps">
-		<div id="map_wrapper_small"><noscript><div><img alt="<?php __('Map view');?>" src="http://maps.google.com/staticmap?center=.<?php echo $googleCenter?>&amp;zoom=14&amp;size=330x330&amp;maptype=mobile\&amp;markers=<?php echo $marker['Marker']['lat'].', '.$marker['Marker']['lon']?>,blues%7C&amp;key=<?php echo $googleKey?>&amp;sensor=false"/></div></noscript></div>
+		<div id="map_wrapper_small"><noscript><div><img alt="<?php __('Map view');?>" src="http://maps.google.com/staticmap?center=.<?php echo $googleCenter?>&amp;zoom=14&amp;size=330x330&amp;maptype=mobile\&amp;markers=<?php echo $marker['Marker']['lat'].','.$marker['Marker']['lon']?>,blues%7C&amp;key=<?php echo $googleKey?>&amp;sensor=false"/></div></noscript></div>
 	</div>
 	<hr class="hidden"/>
 	<h3 id="h3_photos"><?php __('Photos');?></h3>
@@ -163,7 +163,7 @@ echo '</ul>';
 			foreach ($marker['Attachment'] as $image) {
 				$counter++;
 				echo '<div class="thumb">';
-				echo '<a class="lightbox imageThumbView" href="/media/filter/xl/'.$image['dirname']."/".substr($image['basename'],0,strlen($image['basename'])-3).'png">'.$medium->embed("filter/s/".$image['dirname']."/".$image['basename'],array('alt' => $image['alternative'], 'title' => "title")).'</a></div>';
+				echo '<a class="lightbox imageThumbView" href="/media/filter/xl/'.$image['dirname']."/".substr($image['basename'],0,strlen($image['basename'])-3).'png">'.$medium->embed("filter/m/".$image['dirname']."/".$image['basename'],array('alt' => $image['alternative'], 'title' => "title")).'</a></div>';
 			}
 		} else {
 			echo '<div>'.__('No picture available',true).'</div>';
