@@ -10,7 +10,7 @@ echo '</div>';
 echo '</div>';	
 
 echo $form->input('Marker.cat_id',array('div' => 'input text required', 'before' => __('<div>Please take a look at the categories</div>',true), 'label' => __('Category',true), 'empty' => __('Please choose',true)));
-echo $form->input('Marker.processcat_id',array('label' => __('Status',true), 'disabled' => true));
+//echo $form->input('Marker.processcat_id',array('label' => __('Status',true), 'disabled' => true));
 
 if (!$session->read('Auth.User.id')) {
 	echo $form->input('User.email_address',array('div' => 'input text required', 'label' => __('E-Mail',true), 'between'=>'<br/>', 'class'=>'text'));
