@@ -91,16 +91,12 @@ class Marker extends AppModel {
 
 	var $actsAs = array(
 		'Revision' => array(
-				'limit'=>10,
-				'ignore'=>array(''),
-		),
-			
-		 // Suche Plugin 
-
+				'limit'=>3,
+				'ignore'=>array('')),
 		'Search.Searchable' => array(
-		'fields' => array('subject', 'descr', 'street')
-		)
-	);
+		'fields' => array('subject', 'descr', 'street','zip')
+	));
+
 	
 	
 	
@@ -166,19 +162,30 @@ class Marker extends AppModel {
 			$newMarkers = $markers;
 			unset($markers);
 			foreach ($newMarkers as $marker):
-							if ($marker['Marker']['processcat_id'] == 1) {
-								$marker['Marker']['subject'] = __('New Marker ID#',true).$marker['Marker']['id'];
-								$marker['Marker']['descr'] = __('Not yet published',true);
-			
-							}
-							$markers[]= $marker;
+				if ($marker['Marker']['processcat_id'] == 1) {
+					$marker['Marker']['subject'] = __('New Marker ID#',true).' ...'.substr($marker['Marker']['id'],-8);
+					$marker['Marker']['descr'] = __('Not yet published',true);
+				
+				}
+				$markers[]= $marker;
 			endforeach;
 		}
 
 		return $markers;
 	}
 
-		
+	function publishRead($marker){
+		// Filter new unpublished Markers as "New marker #" if neccessary 
+		if (!Configure::read('Publish.Markers')) {
+			if ($marker['Marker']['processcat_id'] == 1) {
+				$marker['Marker']['subject'] = __('New Marker ID#',true).' ...'.substr($marker['Marker']['id'],-8);
+				$marker['Marker']['descr'] = __('Not yet published',true);
+
+			}
+		}
+
+		return $marker;
+	}		
 	
 	
 	

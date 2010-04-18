@@ -98,7 +98,7 @@ echo $validation->bind('Marker');
 		<h3 id="h3_map"><?php __('Map view');?></h3>
 		<p><?php echo __('Please drag the Marker to a desired position or just edit street and zip details',true);?></p>
 	
-		<div id="map_wrapper_add"><noscript><div><img alt="<?php __('Map view');?>" src="http://maps.google.com/staticmap?center=.<?php echo $googleCenter?>&amp;zoom=14&amp;size=230x230&amp;maptype=mobile\&amp;markers=<?php echo $marker['Marker']['lat'].', '.$marker['Marker']['lon']?>,blues%7C&amp;key=<?php echo $googleKey?>&amp;sensor=false" /></div></noscript></div>
+		<div id="map_wrapper_ad"><noscript><div><img alt="<?php __('Map view');?>" src="http://maps.google.com/staticmap?center=.<?php echo $googleCenter?>&amp;zoom=14&amp;size=320x320&amp;maptype=mobile\&amp;markers=<?php echo $marker['Marker']['lat'].','.$marker['Marker']['lon']?>,blues%7C&amp;key=<?php echo $googleKey?>&amp;sensor=false" /></div></noscript></div>
 	
 
 		<hr class="hidden"/>

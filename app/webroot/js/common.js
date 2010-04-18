@@ -7,11 +7,13 @@ $(document).ready(function(){
 		searchLabelContent : 'in Hinweisen suchen',
 		searchSubmitValueLoc : 'Ort suchen',
 		searchSubmitValueMarker : 'Hinweis suchen',
+		searchQValueMarker : 'Schlagloch',
+		searchQValueLoc : 'Glockengasse',
 		searchMap : 'karte',
 		searchSearch : 'search',
 		commentPublish : 'veröffentlichen',
 		commentHide : 'sperren',
-		commentDelete : 'delete'
+		commentDelete : 'löschen'
 	};
 
 	//fadeout flash messages on click
@@ -24,7 +26,7 @@ $(document).ready(function(){
 
 	$("#SearchAddForm").attr("action", confCommon.masDir + confCommon.searchMap);
 	$("#SearchAddForm").attr("method", 'get');
-	$("#SearchQ").val("Straße und Hausnummer");
+	$("#SearchQ").val(confCommon.searchQValueLoc);
 	$("input[type='submit']").val(confCommon.searchSubmitValueLoc);
 	$("#SearchAddForm").attr("method", 'get');
 	$("#SearchQ").focus(function(){
@@ -37,16 +39,16 @@ $(document).ready(function(){
 	$('#SearchWhereKarte').click(function() { 
 		$("#SearchAddForm").attr("action",$(this).val());
 		$("#SearchAddForm").attr("method", 'get');
-		$("input[type='submit']").val("Ort suchen");
-		$("#SearchQ").val("Straße und Hausnummer");
+		$("input[type='submit']").val(confCommon.searchSubmitValueLoc);
+		$("#SearchQ").val(confCommon.searchQValueLoc);
 		$("#SearchAddForm").attr("method", 'get');
 	}); 
 	
 	$('#SearchWhereSearch').click(function() { 
 		$("#SearchAddForm").attr("action",$(this).val());
 		$("#SearchAddForm").attr("method", 'post');
-		$("#SearchQ").val("Schlagloch");
-		$("input[type='submit']").val(searchSubmitValueMarker);
+		$("#SearchQ").val(confCommon.searchQValueMarker);
+		$("input[type='submit']").val(confCommon.searchSubmitValueMarker);
 	}); 
 		 
 	$('#addFormPersonalsDiv').hide(); 
@@ -105,7 +107,8 @@ $(document).ready(function(){
 		'zoomSpeedOut'		:	500
 	});
 	
-	$('a.attachment_del').click(function(e) {
+	/*
+$('a.attachment_del').click(function(e) {
 			e.preventDefault();
 			var parent = $(this).parent().parent();
 			alert(parent.attr('id'));
@@ -122,7 +125,25 @@ $(document).ready(function(){
 				}
 			});
 		});
-
+*/
+/*
+	$('a.link_delete').click(function(e) {
+			e.preventDefault();
+			var parent = $(this).parent().parent();
+			$.ajax({
+				type: 'get',
+				url: '/markers/delete/'+ parent.attr('id'),
+				beforeSend: function() {
+					parent.animate({'backgroundColor':'#fb6c6c'},1300);
+				},
+				success: function() {
+					parent.slideUp(300,function() {
+						parent.remove();
+					});
+				}
+			});
+		});
+*/
 	$('a.comment_publish').click(function(e) {
 		e.preventDefault();
 		var parent = $(this).parent().parent();
@@ -143,7 +164,6 @@ $(document).ready(function(){
 	$('a.comment_delete').click(function(e) {
 		e.preventDefault();
 		var parent = $(this).parent().parent();
-		
 		$.get('/comments/delete/'+ parent.attr('title'), function(data){
 			id=parent.attr('id');
 			if (data == 1) {   	
@@ -186,9 +206,9 @@ $(document).ready(function(){
 	});
   
     // fade out good flash messages after 3 seconds 
- 
-    $('.flash_success').animate({opacity: 1.0}, 5000).fadeOut();  
-    $('.flash_error').animate({opacity: 1.0}, 3000).fadeOut();  
+ 	$('.message').animate({opacity: 1.0}, 3000).fadeOut();  
+    $('.flash_success').animate({opacity: 1.0}, 3000).fadeOut();  
+    $('.flash_error').animate({opacity: 1.0}, 5000).fadeOut();  
   	
 	$('.sf-menu').superfish({ 
             delay:       300,                            // one second delay on mouseout 

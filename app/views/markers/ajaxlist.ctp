@@ -20,12 +20,42 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-	$("a.lightbox").fancybox();
-		
 
-  	$('a.link_view').wrapInner(document.createElement("span"));
-  	$('a.link_edit').wrapInner(document.createElement("span"));
-  	$('a.link_delete').wrapInner(document.createElement("span"));
+    $("#dialog").dialog({
+    	bgiframe: true,
+    	autoOpen: false,
+    	height: 300,
+    	modal: true,
+    	buttons: {
+    		OK: function() {
+    	              $("#dialog &gt; form").submit();
+    		  $(this).dialog('close');
+    		},
+    		Abbrechen: function() {
+    			$(this).dialog('close');
+    		}
+    	}
+    });
+
+	$("a.lightbox").fancybox();
+	$('td>a.link_delete').click(function(e) {
+			e.preventDefault();
+	    	$('#dialog').dialog('open');
+
+			var parent = $(this).parent().parent();
+			$.ajax({
+				type: 'get',
+				url: '/markers/delete/'+ parent.attr('id'),
+				beforeSend: function() {
+					parent.animate({'backgroundColor':'#fb6c6c'},1300);
+				},
+				success: function() {
+					parent.slideUp(300,function() {
+						parent.remove();
+					});
+				}
+			});
+		});
   	$('.close>a').click(function() {
   		$("#tabAll").fadeOut('slow'); 
   		$('input#toggletab').attr("checked", ""); 
@@ -43,26 +73,11 @@ $(document).ready(function() {
 	    	});
 //	}
 
-	$('a.link_delete').click(function(e) {
-			e.preventDefault();
-			var parent = $(this).parent().parent();
-			$.ajax({
-				type: 'get',
-				url: '/markers/delete/'+ parent.attr('id'),
-				beforeSend: function() {
-					parent.animate({'backgroundColor':'#fb6c6c'},1300);
-				},
-				success: function() {
-					parent.slideUp(300,function() {
-						parent.remove();
-					});
-				}
-			});
-		});
+
 });
 </script>
 
-
+		<div id="dialog" style="display:none" title="<?php __('delete')?>"></div>
 		<div id="tabList">
 		<div class="close"><a href="#"><span><?php __('close')?></span></a></div>
 		<form id="tabFilter">

@@ -17,7 +17,7 @@
  * @version    0.98
  */
  
-
+pr($markers);
 echo $this->element('head');
 ?>
 <?php		
@@ -55,6 +55,8 @@ echo $this->element('head');
 
 <div id="content" class="page form">
 	<div class="markers index">
+	<noscript>
+
 	<?php if ($h2Cat) {?>
 		<h2 style=""><?php __('Markers by category: ', true ).$h2Cat;?></h2>
 		<?php echo $this->element('ajaxlist_element'); ?>
@@ -65,13 +67,7 @@ echo $this->element('head');
 		<h2 style=""><?php __('All markers');?></h2>
 		<?php echo $this->element('ajaxlist_element'); ?>
 	<?php } ?>
-			<div id="tabAll">
-				<div id="markerList" class="ui-widget-content ui-state-default"></div> 
-			</div>
-			<div id="tabMy">
-				<div id="markerMyList" class="ui-widget-content ui-state-default"></div> 
-			</div>
-			<noscript>
+
 			<div id="listNoscript">
 				<?php
 				echo $paginator->counter(array(
@@ -87,7 +83,7 @@ echo $this->element('head');
 					<li><?php echo $paginator->sort(__('Rating',true), 'Marker.rating');?></li>
 					<li><?php echo $paginator->sort(__('Modified',true), 'Marker.modified');?></li>
 				</ul>
-				<ul class="marker_static">
+					<ul class="marker_static">
 				<?php
 				$i = 0;
 				foreach ($markers as $marker):
@@ -96,22 +92,24 @@ echo $this->element('head');
 						$class = ' class="altrow"';
 					}
 				?>
-						<li><img alt="<?php __('Map view');?>" src="http://maps.google.com/staticmap?center=<?php echo $googleCenter?>&amp;zoom=14&amp;size=330x330&amp;maptype=mobile\&amp;markers=<?php echo $marker['Marker']['lat'].','.$marker['Marker']['lon']?>,blues%7C&amp;key=<?php echo $googleKey?>&amp;sensor=false"/><h3><?php echo $html->link($marker['Marker']['subject'], array('action' => 'view', $marker['Marker']['id'])); ?></h3><span><?php echo $marker['User']['nickname']; ?>, gemeldet: <?php echo $datum->date_de($marker['Marker']['created'],1);?></span>						<ul>
+						<li><img alt="<?php __('static map');?>" src="http://maps.google.com/staticmap?center=<?php echo $googleCenter?>&amp;zoom=12&amp;size=150x150&amp;maptype=mobile\&amp;markers=<?php echo $marker['Marker']['lat'].','.$marker['Marker']['lon']?>,blues%7C&amp;key=<?php echo $googleKey?>&amp;sensor=false" /><h3><?php echo $html->link($marker['Marker']['subject'], array('action' => 'view', $marker['Marker']['id'])); ?></h3><span><small><?php echo $marker['User']['nickname']; ?>, gemeldet: <?php echo $datum->date_de($marker['Marker']['created'],1);?></small></small></span>						<ul>
 								<li class="image_static"></li>
-								<li class="cat_static"><?php echo $marker['Cat']['name']; ?></li>
+								<li class="cat_<?php echo $marker['Cat']['hex']; ?>"><?php __('Category:');?> <?php echo $marker['Cat']['name']; ?></li>
 								<li class="district_static"><a href="#" onclick="map.setCenter(<?php echo $marker['District']['lat']; ?>,<?php echo $marker['District']['lon']; ?>)"><?php echo $marker['District']['name']; ?></a></li>
-								<li class="color_<?php echo $marker['Processcat']['hex']; ?>"><?php echo $marker['Processcat']['name']; ?></li></ul>
+								<li class="color_<?php echo $marker['Processcat']['hex']; ?>"><?php __('Status:');?> <?php echo $marker['Processcat']['name']; ?></li></ul>
 						</li>
+						<li><h4><?php __('Address')?>:</h4><?php echo $marker['Marker']['street']; ?><br/><?php echo $marker['Marker']['zip']; ?></li>
+
 						<li class="actions static">
 							<?php echo $html->link(__('Details', true), array('action' => 'view', $marker['Marker']['id']),array('class'=>'link_view')); ?>
 							<?php 
 							// gehoert der Marker diesem User?
-							if ($marker['Marker']['user_id'] == $session->read('Auli.User.id')) 	
+							if ($marker['Marker']['user_id'] == $session->read('Auth.User.id')) 	
 								echo $html->link(__('edit', true), array('action' => 'edit', $marker['Marker']['id']),array('class'=>'link_edit')); ?>
 							<?php 
 							// gehoert der Marker diesem User?
-							if ($marker['Marker']['user_id'] == $session->read('Auli.User.id')) 	
-								echo $html->link(__('delete', true), array('action' => 'delete', $marker['Marker']['id']),array('class'=>'link_delete'), sprintf(__('Are you sure to delete marker # %s?', true), $marker['Marker']['id'])); 
+							if ($marker['Marker']['user_id'] == $session->read('Auth.User.id')) 	
+								echo $html->link(__('delete', true), array('action' => 'delete', $marker['Marker']['id']),array('class'=>'link_delete'), sprintf(__('Are you sure to delete Marker # %s?', true), $marker['Marker']['id'])); 
 							?><br style="clear:both"/><hr/></li>			
 				<?php endforeach; ?>
 				</ul>

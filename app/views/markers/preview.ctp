@@ -140,8 +140,7 @@ echo '</ul>';
 <div id="sidebar">
 	<h3 id="h3_map"><?php __('Map view');?></h3>
 	<div id="maps">
-		<div id="map_wrapper_small"><noscript><div><img alt="<?php __('Map view');?>" src="http://maps.google.com/staticmap?center=.<?php echo $googleCenter?>&amp;zoom=14&amp;size=330x330&amp;maptype=mobile\&amp;markers=<?php echo $marker['Marker']['lat'].','.$marker['Marker']['lon']?>,blues%7C&amp;key=<?php echo $googleKey?>&amp;sensor=false"/></div></noscript></div>
-	</div>
+				<div id="map_wrapper_small"><noscript><div><img alt="<?php __('Map view');?>" src="http://maps.google.com/staticmap?center=.<?php echo $googleCenter?>&amp;zoom=14&amp;size=330x330&amp;markers=<?php echo $marker['Marker']['lat'].','.$marker['Marker']['lon']?>,blues%7C&amp;key=<?php echo $googleKey?>&amp;sensor=false"/></div></noscript></div>
 	<hr class="hidden"/>
 	<h3><?php __('Photos');?></h3>
 	<div id="media">

@@ -33,7 +33,7 @@ class AppController extends Controller {
 							'confirm', 
 							'index', 
 							'searches', 
-							'search', 
+							'searchable', 
 							'suche', 
 							'signup', 
 							'rss', 

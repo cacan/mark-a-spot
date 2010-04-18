@@ -81,21 +81,24 @@ var conf = {
 	townString	:	'Köln',
 	townZip		:	'50676',
 	townStreet	:	'Dom',
-	townCenter	:	'50.82968607835879, 6.8939208984375', // http://www.getlatlon.com/ << there
+	townCenter	:	'50.9403631,6.9584923', // http://www.getlatlon.com/ << there
 	Text	:	{
 		NotCountry :'Dieser Punkt liegt nicht in Deutschland',
 		NotTown : 'Dieser Punkt liegt nicht in Köln',
-		NewAdress : 'Neue Position'
+		NewAdress : 'Neue Position: ',
+		NoMarkers : 'Keine Hinweise in dieser Kategorie'
+
 	},
 	Infwin:	{
 		TabCommon : 'Allgemein',
 		TabDetail : 'Beschreibung',
-		TabCommonSubject : 'Neue Position',
+		TabAdmin : 'Administration',
+		TabCommonSubject : 'Neue Position: ',
 		TabCommonCategory : 'Kategorie',
 		TabCommonStatus : 'Status',
 		TabCommonRating : 'Bewertung',
 		TabCommonDetails : 'Details zu diesem Hinweis',
-		TabCommonNewDescr : 'Ein neuer Hinweis',
+		TabCommonNewDescr : 'Hier einen neuen Hinweis setzen',
 		TabCommonLinkText : 'zu den Details'
 	},
 	Sidebar: {
@@ -130,7 +133,6 @@ $(document).ready(function () {
 	 */
 	var urlParts = $.url.attr("path").split("/");
 	var lastPart = urlParts.length -1;
-	//alert(lastPart);
 	if ($.url.attr("path").indexOf(conf.Url.controllerActionView) != -1) {
 		
 		// view certain marker
@@ -155,6 +157,7 @@ $(document).ready(function () {
 		// splashpage view
 		var getMarkerId = '';
 		$('#map_wrapper_splash').append('<div id="map"></div>');
+		
 	} else if ($.url.attr("path").indexOf(conf.masDir + conf.Url.controllerActionMap) != -1) {
 				
 		// main-application view
@@ -220,36 +223,21 @@ $(document).ready(function () {
 		$("#sidebar").accordion({ 
 			header: "h3",
 			active: 0,
-			autoHeight: false  
+			autoHeight: false
 		});
 
 	} /**endif*/
 	
 
-	
-	
-	map = new GMap2(document.getElementById("map"));
-	initLatlon = conf.townCenter.split(",");
-
-    map.setCenter(new GLatLng(initLatlon[0],initLatlon[1]), 12);
-	var customUI = map.getDefaultUI();
-    customUI.maptypes.physical = true;
-    map.setUI(customUI);
-   
-    
-    /**Copyright line-break*/
-    GEvent.addListener(map, "tilesloaded", function() {
-  		$('.gmnoprint').next('div').css('white-space', 'normal');
-	}); 
 
 
-		/**
-		 *  search from splashpage?
-		 *
-		 */
-		if ($.url.param("data[Search][q]")){
-			showLocation($.url.param("data[Search][q]"));
-		}
+	/**
+	 *  search from splashpage?
+	 *
+	 */
+	if ($.url.param("data[Search][q]")){
+		showLocation($.url.param("data[Search][q]"));
+	}
 
 
 	/**Sidebar Marker-functions*/
@@ -307,6 +295,7 @@ $(document).ready(function () {
 	
 	    }); 
 	} 
+	
 	loadPiece(conf.masDir + 'markers/ajaxlist', '#markerList'); 
 	loadPiece(conf.masDir + 'markers/ajaxmylist', '#markerMyList'); 
 	
@@ -330,7 +319,7 @@ $(document).ready(function () {
 			delete markersArray;
 			markersArray = new Array();
 			points = new Array;
-			markerOptions={};
+			markerOptions = {};
 		} else {
 			getToggle=1;	
 		}
@@ -368,35 +357,35 @@ $(document).ready(function () {
     		}
     		$.each(data, function(i, item){
     			var markers = i;
-				var id 				= item.Marker.id;
+				var id = item.Marker.id;
 				if (item.Attachment[0]) {
-					var imagePath 		= item.Attachment[0].dirname;
-					var imageBasename 	= item.Attachment[0].basename;
+					var imagePath = item.Attachment[0].dirname;
+					var imageBasename = item.Attachment[0].basename;
 					if(imageBasename) {
-						var imageName			= imageBasename.split('.');
+						var imageName = imageBasename.split('.');
 					}
-					var imageId 		= item.Attachment[0].id;
-					var imageAlt 		= item.Attachment[0].alternative;
+					var imageId = item.Attachment[0].id;
+					var imageAlt = item.Attachment[0].alternative;
 				}	
-				var votes 			= item.Marker.votes;
-				var label_color		= "#000000";
+				var votes = item.Marker.votes;
+				var label_color	= "#000000";
 				if (item.Marker.rating <= 2) {
-					var rate_color 	= "#cccccc";
+					var rate_color = "#cccccc";
 				} 
 				if (item.Marker.rating >= 2) {
-					var rate_color 	= "#cccc99";
+					var rate_color = "#cccc99";
 				}
 				if (item.Marker.rating >= 3) {
-					var rate_color 	= "#ffff33";
+					var rate_color = "#ffff33";
 				}
 				if (item.Marker.rating >= 3.5) {
-					var rate_color 	= "#ffcc33";
+					var rate_color = "#ffcc33";
 				}
 				if (item.Marker.rating >= 4) {
-					var rate_color 	= "#ff6600";
+					var rate_color = "#ff6600";
 				}
 				if (item.Marker.rating >= 4.5) {
-					var rate_color 	= "#b7090a";
+					var rate_color = "#b7090a";
 					var label_color = "#ffffff";
 				}
 				if (imageId) {
@@ -410,30 +399,32 @@ $(document).ready(function () {
 				var html4 = '<h4>' + conf.Infwin.TabCommonRating + '</h4><div id="rates"></div><h4>' + conf.Infwin.TabCommonDetails + '</h4><div><a class="" href="' + conf.masDir + 'markers/view/'+ id + '">' + conf.Infwin.TabCommonLinkText + '</a></span>';
 				var latlon = new GLatLng(item.Marker.lat,item.Marker.lon);
 				points.push(latlon);
-				if (getToggle == 1) {
-					/**
-					 * Category view
-					 *
-					 */
+				
+				/**
+				 * Category view
+				 *
+				 */
+				if (getToggle == 1) {					
 					var newIcon1 = MapIconMaker.createMarkerIcon({width: 32, height: 32, primaryColor: item.Cat.Hex });
 					var markerOptions = {draggable:true, icon:newIcon1}; 
 				}
-				if (getToggle == 2 || processCond) {
-					/**
-					 * Process view
-					 *
-					 */
+
+				/**
+				 * Process view
+				 *
+				 */		
+				if (getToggle == 2 || processCond) {	
 					var newIcon2 = MapIconMaker.createMarkerIcon({width: 32, height: 32, primaryColor: item.Processcat.Hex });
 					var markerOptions = {draggable:true,icon:newIcon2}; 
 				}
+
+				/**
+				 * Ratings view
+				 *
+				 */					
 				if (getToggle == 3){	
-					/**
-					 * Ratings view
-					 *
-					 */
-		
+
 					var percent = allVotes/30*votes;
-					//alert(percent);
 					var iconOptions = {};
 					iconOptions.width = parseInt(percent/2+35);
 					iconOptions.height = parseInt(percent/2+35);
@@ -443,19 +434,15 @@ $(document).ready(function () {
 					iconOptions.labelColor = label_color;
 					iconOptions.shape = "circle";
 					var newIcon3 = MapIconMaker.createFlatIcon(iconOptions);
-					var markerOptions = {text:"Zieh mich!", draggable:true, icon:newIcon3}; 
+					var markerOptions = {text:"Zieh mich!", draggable:false, icon:newIcon3}; 
 				}
 							
-				
 				var marker= new GMarker(latlon, markerOptions);
 				var fn  = markerClickFn(markers[item], html1, html2, html3, html4, item.Marker.descr, latlon,id);
 				var fn1 = markerDragFn(markers[item], html1, html2, id);
 
 				
-				if (!getMarkerId) {
-					GEvent.addListener(marker, "click", fn);
-					GEvent.addListener(marker, 'dragend', fn1);
-				}
+
 				
 				if ($("#markersidebar")){
 					var li = document.createElement('li');
@@ -467,42 +454,54 @@ $(document).ready(function () {
 				}
 				markersArray.push(marker);
 				map.addOverlay(marker);
-				
-				/**
-				 * set Position of Map depending on Map Modus (one or more markers)
-				 *
-				 */
-				if (getMarkerId) {	
-					map.setCenter(latlon, 15);
+				if (!getMarkerId) {
+					GEvent.addListener(marker, "click", fn);
 					GEvent.addListener(marker, 'dragend', fn1);
 				} else {
-					var bounds = new GLatLngBounds();
-					//alert(points.length);
-					for (var i=0; i< points.length; i++) {
-						bounds.extend(points[i]);
-					}
-					map.setZoom(map.getBoundsZoomLevel(bounds));
-					if(!points) {
-						alert('keine Marker');
-					} else if(!$.url.param("data[Search][q]")) { 
-						map.setCenter(bounds.getCenter());
-					}
+					map.setCenter(latlon, 15);
 				}
+				
 			}); // $.each
+			
+			var bounds = new GLatLngBounds();
+			
+			for (var i=0; i< points.length; i++) {
+				bounds.extend(points[i]);
+			}
+			map.setZoom(map.getBoundsZoomLevel(bounds));
+
+			if(!points) {
+				alert('keine Marker');
+			}
 		});	// AJAX 
 	};
 	
 
+	
+	
+	map = new GMap2(document.getElementById("map"));
+	
 	/**
 	 * Call view
 	 *
 	 */
-	readData(1,getMarkerId,catCond,processCond);
+	readData(1,getMarkerId,catCond,processCond);	
+	
+	initLatlon = conf.townCenter.split(",");
+    map.setCenter(new GLatLng(initLatlon[0],initLatlon[1]));
+	var customUI = map.getDefaultUI();
+    customUI.maptypes.physical = true;
+    map.setUI(customUI);
+   
+    
+    /**Copyright line-break*/
+    GEvent.addListener(map, "tilesloaded", function() {
+  		$('.gmnoprint').next('div').css('white-space', 'normal');
+	}); 
+	
+	
+	
 		
-
-
-
-
 	/**
 	 * all other functions following 
 	 *
@@ -513,10 +512,10 @@ $(document).ready(function () {
 			var url = conf.masDir + 'markers/maprate?id=' + id;		
 			var htmlmarker = [];
 			htmlmarker.push(new GInfoWindowTab(conf.Infwin.TabCommon, '<div class="inf"' + html1 + html2 + html3 + html4 + '</div>'));
-			//htmlmarker.push(new GInfoWindowTab(conf.Infwin.TabDetail, '<div class="inf"><h4>'+ conf.Infwin.TabCommonDetails + '</h4>'+descr+'</div>'));
+
 			map.openInfoWindowTabs(latlon, htmlmarker);
-			//hol das rating
-			 $.get(url, function(data){
+			
+			$.get(url, function(data){
 	 			$('#rates').append(data);
 			});	
 		};
@@ -541,11 +540,11 @@ $(document).ready(function () {
 			htmlmarker.push(new GInfoWindowTab(conf.Infwin.TabCommon, '<div class="inf"' + html1 + html2 + '</div>'));	
 			if ($.cookie('CakeCookie[admin]')) {	
 				htmlmarker.push(new GInfoWindowTab(conf.Infwin.TabAdmin, '<div><h4>' + conf.Text.NewAdress + '</h4><div id="newPos"></div></div>'));
+				// Write new Position to DB
+				saveId=id;
+				geocoder.getLocations(newlatlng, saveAddress);
+				map.openInfoWindowTabs(newlatlng, htmlmarker, {selectedTab:1});
 			}
-			// Write new Position to DB
-			saveId=id;
-			geocoder.getLocations(newlatlng, saveAddress);
-			map.openInfoWindowTabs(newlatlng, htmlmarker, {selectedTab:1});
 		};
 	};
 
@@ -594,8 +593,9 @@ $(document).ready(function () {
 	};
 	
 	function addAddressToMap(response) {
-		geoCodedZip 	= "";
-		geoCodedStreet= "";
+		geoCodedZip = "";
+		geoCodedStreet = "";
+
 		//map.clearOverlays();
 		
 		if (!response || response.Status.code != 200) {
@@ -633,7 +633,7 @@ $(document).ready(function () {
 			if ($('#MarkerStreet').val() == "") {
 				$('#MarkerStreet').val(addressArray[0]);
 			}
-			
+			map.setZoom(15);
 			map.panTo(point);
 			map.addOverlay(marker);
 			marker.openInfoWindowHtml('<h4>Position</h4>' + '<div id="newPos">'+ place.address + '</div>' + '<div><a href="' + conf.masDir + 'markers/startup/new/'+ addressArray[0]+'/'+ zip +'">'+ conf.Infwin.TabCommonNewDescr +' </a></div>',{maxWidth:250});
@@ -675,7 +675,7 @@ $(document).ready(function () {
 		var MasHeight = $(window).height(); 
 		var MasWidth = $(window).width(); 
 		$('#wrapper').css( {height: MasHeight-10, width: MasWidth-80} ); 
-		$('#footer_app').css( {height: MasHeight-10, width: MasWidth-80} ); 
+		$('#footer_app').css( {width: MasWidth-80} ); 
 		$('#content').css( {height: MasHeight-110, width: MasWidth-330} ); 
 		$('#map').css( {height: MasHeight-110, width: MasWidth-330} ); 
 		$('#breadcrump > div').css( {height: MasHeight-110, width: MasWidth-330} ); 

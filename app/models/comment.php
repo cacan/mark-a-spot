@@ -17,10 +17,7 @@ class Comment extends AppModel {
 			'order' => ''
 		)
 	);
-	var $actsAs = array('Search.Searchable' => array(
-		'fields' => array('comment')
-		)
-	);
+	var $actsAs = 'Search.Searchable';
 	
 /*
 	function beforeSave() {

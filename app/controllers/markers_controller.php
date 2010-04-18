@@ -87,14 +87,12 @@ class MarkersController extends AppController {
 			$this->Cookie->del('admin');
 			$this->set("userGroup", "");
 		}
-	      	
+	    
 	      	
 		// Can Access checks if marker belongs to user
 		if (in_array($this->action, array('delete', 'edit')) && isset($this->params['pass'][0])) {
-
 	      if (!$this->Marker->canAccess($this->Auth->user('id'), $this->params['pass'][0]) 
 	      	&& $userGroup != $uGroupSysAdmin && $userGroup != $uGroupAdmin) {
-	      	
 				$this->Session->setFlash(__('You are not allowed here!',true), 'default',array('class' => 'flash_error'));
 				//$this->redirect(array('action' => 'index'));
 			}
@@ -462,9 +460,9 @@ class MarkersController extends AppController {
 	function view($id = null) {
 		$this->layout = 'default_page';
 		$this->set('title', 'Hinweis im Detail');
-		$data = $this->Marker->read(null, $id);
+		$data = $this->Marker->publishRead($this->Marker->read(null, $id));
 		$this->set('marker', $data);
- 		
+
  		if (!$id) {
 			$this->Session->setFlash(__('This marker does not exist.',true), 
 											'default',
@@ -489,7 +487,7 @@ class MarkersController extends AppController {
 		$data = $this->Marker->read(null, $id);
 		$this->set('marker', $data);
  		
- 		if (!$id || !$data) {
+ 		if (!$id) {
 			$this->Session->setFlash(__('This marker does not exist.',true), 
 											'default',
 											array('class' => 'flash_error'));
@@ -567,6 +565,7 @@ class MarkersController extends AppController {
 												array('class', 'flash_error'));
 			}
 		}
+		
 		$cats = $this->Marker->Cat->find('list');
 		$this->set(compact('cats'));
 		$districts = $this->Marker->District->find('list');
@@ -685,13 +684,16 @@ class MarkersController extends AppController {
 		} else {
 			exit;
 		}
-	$address = explode(", ", $this->params['pass'][3]);
-	$address = array_reverse($address); 
-	
-	$splitCity=explode(" ", $address[1]);
+		$address = explode(", ", $this->params['pass'][3]);
+		//$address = array_reverse($address); 
+		pr($address);
+		$splitCity=array_reverse(explode(" ", $address[1]));
+	    pr($splitCity);
 		
-		$this->data['Marker']['zip'] 	= $splitCity[0];
+		$this->data['Marker']['street'] = $address[0];
+		$this->data['Marker']['zip'] = $splitCity[1];
 		$this->data['Marker']['city'] = Configure::read('Gov.town');
+
 
 		$fields = array($this->data['Marker']['lat'],$this->data['Marker']['lon']);
 		$this->Marker->id = $id;
@@ -713,13 +715,13 @@ class MarkersController extends AppController {
 				if ($this->Marker->saveField('lon', $this->params['pass'][2], $validate = false))
 					$this->set(flash_success_2, 'lon ok');
 				
-				if ($this->Marker->saveField('zip', $splitCity[1], $validate = false))
+				if ($this->Marker->saveField('zip', $this->data['Marker']['zip'], $validate = false))
 					$this->set(flash_success_3, 'PLZ ok');
 				
-				if ($this->Marker->saveField('city', $splitCity[2], $validate = false))
+				if ($this->Marker->saveField('city', $this->data['Marker']['city'], $validate = false))
 					$this->set(flash_success_4, 'Stadt ok');
 				
-				if ($this->Marker->saveField('street', $address[2], $validate = false)) {
+				if ($this->Marker->saveField('street', $this->data['Marker']['street'], $validate = false)) {
 					$this->set(flash_success_5, 'Straße ok');
 					
 				}			

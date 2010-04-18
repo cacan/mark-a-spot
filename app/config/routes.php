@@ -45,6 +45,7 @@
 	Router::connect('/seiten/*', array('controller' => 'pages', 'action' => 'display'));
 	Router::connect('/rss', array('controller' => 'markers', 'action' => 'rss'));
 	Router::connect('/search/*',	array('plugin' => 'search', 'controller' => 'searches', 'action' => 'index'));
+
 	
 /**
  *

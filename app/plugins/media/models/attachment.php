@@ -36,7 +36,7 @@ class Attachment extends MediaAppModel {
  * @var mixed
  * @access public
  */
-	var $useTable = 'attachments';
+	//var $useTable = 'attachments';
 /**
  * actsAs property
  *
@@ -59,7 +59,8 @@ class Attachment extends MediaAppModel {
 			'metadataLevel'   => 2,
 			'makeVersions'    => true,
 			'filterDirectory' => MEDIA_FILTER,
-	));
+		)
+	);
 /**
  * Validation rules for file and alternative fields
  *

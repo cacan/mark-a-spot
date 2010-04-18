@@ -88,12 +88,7 @@ echo '</ul>';
 					} 
 					?>
 			</div>
-			<?php if ($marker['Processcat']['id'] == 1) {?>
-				<dl class="color_<?php echo $marker['Processcat']['hex'];?>">
-				<dt class="marker_kat"><?php __('Status'); ?></dt>
-				<dd><?php __('Marker registered');?></dd>
-				</dl>
-			<?php } else { ?>
+
 			<dl class="color_<?php echo $marker['Processcat']['hex'];?>">
 				<dt class="marker_kat"><?php __('Category'); ?></dt>
 				<dd class="<?php echo $marker['Cat']['hex']; ?>">
@@ -114,7 +109,7 @@ echo '</ul>';
 					<?php echo $marker['Marker']['street']; ?>
 				</dd>		
 			</dl>
-			<?php } ?>
+
 	</div>
 	<div id="descr_meta">
 		<small><?php __('added: '); ?> <?php echo $datum->date_de($marker['Marker']['created']) ?> <?php __('by '); ?> <?php echo $marker['User']['nickname']; ?> | <?php __('last edited on'); ?>	<?php echo $datum->date_de($marker['Marker']['modified']) ?></small>
@@ -150,7 +145,7 @@ echo '</ul>';
 <!-- AddThis Button END --></div>
 	<h3 id="h3_map"><?php __('Map view');?></h3>
 	<div id="maps">
-		<div id="map_wrapper_small"><noscript><div><img alt="<?php __('Map view');?>" src="http://maps.google.com/staticmap?center=.<?php echo $googleCenter?>&amp;zoom=14&amp;size=330x330&amp;maptype=mobile\&amp;markers=<?php echo $marker['Marker']['lat'].','.$marker['Marker']['lon']?>,blues%7C&amp;key=<?php echo $googleKey?>&amp;sensor=false"/></div></noscript></div>
+		<div id="map_wrapper_small"><noscript><div><img alt="<?php __('Map view');?>" src="http://maps.google.com/staticmap?center=.<?php echo $googleCenter?>&amp;zoom=14&amp;size=330x330&amp;markers=<?php echo $marker['Marker']['lat'].','.$marker['Marker']['lon']?>,blues%7C&amp;key=<?php echo $googleKey?>&amp;sensor=false"/></div></noscript></div>
 	</div>
 	<hr class="hidden"/>
 	<h3 id="h3_photos"><?php __('Photos');?></h3>

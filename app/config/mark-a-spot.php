@@ -39,7 +39,7 @@ $config['e-mail.resetpw.subject'] = 'Passwort Reset at Mark-a-Spot / Mas-city';
 
 
 //$config['Google.Key'] = 'ABQIAAAAzAaa1p0iGUs-Hzx9dW_8KhS2SIgkSweE_2mDFpyoUqumsa2_SxT-xhAfdq1FLr9zK-frbi1QKkmihw';
-$config['Google.Center'] = '50.82968607835879,6.8939208984375'; // http://www.getlatlon.com/ << there
+$config['Google.Center'] = '50.9403631,6.9584923'; // http://www.getlatlon.com/ << there
 
 
 $config['Publish.Markers'] = 1;

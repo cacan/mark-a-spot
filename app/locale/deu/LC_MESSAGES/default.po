@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "POT-Creation-Date: 2010-04-13 19:24+0200\n"
-"PO-Revision-Date: 2010-04-13 21:56+0100\n"
+"PO-Revision-Date: 2010-04-18 12:08+0100\n"
 "Last-Translator: Holger Kreis <holger@markaspot.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -912,7 +912,7 @@ msgstr "Willkommen, "
 
 #: /views/elements/welcome.ctp:30
 msgid "please log in"
-msgstr "Bitte melden Sie sich an!"
+msgstr "bitte melden Sie sich an!"
 
 #: /views/layouts/default_marker.ctp:18
 #: /views/layouts/default_page.ctp:18
@@ -1066,7 +1066,7 @@ msgstr "Bitte geben Sie uns ein paar zusätzliche Informationen."
 
 #: /views/markers/add.ctp:70
 msgid "Save Information"
-msgstr "Abspeichern"
+msgstr "Speichern"
 
 #: /views/markers/add.ctp:73
 msgid "Add a streets name or drag the marker to the desired position"
@@ -1136,7 +1136,7 @@ msgstr "Benutzer benachrichtigen"
 #: /views/markers/admin.ctp:104
 #: /views/markers/edit.ctp:89
 msgid "<span>Save information</span>"
-msgstr "<span>Informationen abspeichern</span>"
+msgstr "<span>Informationen speichern</span>"
 
 #: /views/markers/admin.ctp:130
 msgid "block"
